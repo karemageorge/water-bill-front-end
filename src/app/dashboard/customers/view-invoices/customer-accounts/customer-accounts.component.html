@@ -1,0 +1,84 @@
+<section class="content">
+    <mat-card class="container alternate-theme">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div class="search-box">
+            <mat-form-field color="primary">
+              <input (keyup)="applyFilter($event)" matInput placeholder="Search by customer name" >
+              <mat-icon color="primary" matSuffix style="font-size: 1.2em">search</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="action-button" fxLayoutGap="25px">
+            <!-- <button mat-raised-button color="primary" >
+              <mat-icon>download</mat-icon>&nbsp;&nbsp;Import Customers
+            </button>
+            <button routerLink="/admin/customers/createcustomer"
+            mat-raised-button color="primary" >
+              <mat-icon>person_add</mat-icon>&nbsp;&nbsp;Create Customer
+            </button> -->
+          </div>
+        </div>
+        <div>
+          <table mat-table  class=" table-bordered table-striped" [dataSource]="dataSource" matSort>
+    
+            <!-- "Account_Number","Old_Acc_#","Account_Balance","Current_Mtr_Reading","Prev_Mtr_Reading","Default","Deposit","Meter_Status","Meter_Size" -->
+            <ng-container matColumnDef="Account_Number">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Account_Number </h3></th>
+              <td mat-cell *matCellDef="let row"> {{row?.defaultAccNumber}} </td>
+            </ng-container>
+      
+            <!-- Name Column -->
+            <ng-container matColumnDef="Old_Acc_#">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Old_Acc_# </h3></th>
+              <td mat-cell *matCellDef="let row"> {{row?.cLegacyAccNo}} </td>
+            </ng-container>
+      
+            <!-- Account no Column -->
+            <ng-container matColumnDef="Account_Balance">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Account_Balance</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row?.cAccBal}} </td>
+            </ng-container>
+      
+            <!-- External ID Column -->
+            <ng-container matColumnDef="Current_Mtr_Reading">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Current_Mtr_Reading</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row?.balCurrentMeterReading}} </td>
+            </ng-container>
+    
+    
+            <ng-container matColumnDef="Prev_Mtr_Reading">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Prev_Mtr_Reading</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row?.bal_previous_meter_reading}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="Default">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Default</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row?.cDefault}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="Deposit">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Deposit</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row?.cDeposit}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Meter_Status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Meter_Status</h3> </th>
+                <td mat-cell *matCellDef="let row"> {{row?.cAccountMeterStatus}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Meter_Size">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Meter_Size</h3> </th>
+                <td mat-cell *matCellDef="let row"> {{row?.cMtrSize}} </td>
+            </ng-container>
+      
+      
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="select-row">
+            </tr>
+          </table>
+      
+          <mat-paginator  [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]"
+            showFirstLastButtons></mat-paginator>
+        </div>
+      
+    </mat-card>
+    </section>

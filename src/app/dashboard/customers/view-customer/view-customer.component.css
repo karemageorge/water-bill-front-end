@@ -1,0 +1,16 @@
+.mat-card-header {
+    background-color: #007BFF;
+    color: white;
+    font-family: Raleway ;
+    padding: 20px;
+}
+.mat-card-subtitle {
+    color: white;
+}
+label {
+    margin-top: 5px;
+}
+mat-card-title {
+    margin-bottom: 15px;
+}
+

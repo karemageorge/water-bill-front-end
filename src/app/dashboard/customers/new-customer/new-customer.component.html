@@ -1,0 +1,236 @@
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+    <h1>New Customer Details</h1>
+    </div>
+    <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item" ><a routerLink="/admin/">Home</a></li>
+    <li class="breadcrumb-item active" ><a routerLink="/admin/customers">Customers</a></li>
+    <li class="breadcrumb-item active">New Customer</li>
+    </ol>
+    </div>
+    </div>
+    </div>
+</section>
+<div class="content alternate-theme" style="background-color: white; color: black; padding: 40px;">
+<div class="">
+<form (ngSubmit)="onSubmit(form)" #form="ngForm">    
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="name">CustomerName</label>
+            <input type="text" class="form-control" name="name" ngModel #name="ngModel" required>
+            <div  class="help-block" *ngIf="name.touched && !name.valid"><p>Please enter name</p></div>
+        </div>        
+    </div>
+    <div class="col-md-4">
+        <label class="control-label" for="customertype" >Customer Type</label>
+        <select  class="form-control" ngModel name="customertype" #customertype="ngModel" required>
+            <option *ngFor="let customertype of customertypes" [value]="customertype.cutId">{{customertype.cutCode}}</option>
+        </select> 
+    <!-- <div class="help-block"><p>please choose customer type</p></div>         -->
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="phonenumber">Phone Number</label>
+            <input type="text" class="form-control" name="phonenumber" ngModel #phonenumber="ngModel" required>
+        <div class="help-block" *ngIf="phonenumber.touched && !phonenumber.valid"><p>please enter phone number</p></div>
+        </div>        
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="passportnumber">National Or Passport Number</label>
+            <input type="text" class="form-control" name="passportnumber" ngModel #passportnumber="ngModel" required>
+        <div class="help-block" *ngIf="!passportnumber.valid && passportnumber.touched"><p>please enter national Id</p>
+        </div>
+        </div>        
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="status">status</label>
+            <select  class="form-control show-tick" ngModel name="status" #status="ngModel">
+                <option *ngFor="let stat of statuss" [value]="stat">{{stat}}</option>
+            </select> 
+        <div class="help-block"></div>
+        </div>        
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="MeterStatus">MeterStatus</label>
+            <select  class="form-control show-tick" ngModel name="MeterStatus" #MeterStatus="ngModel" required>
+                <option *ngFor="let MeterStatus of MeterStatuss" [value]="MeterStatus">{{MeterStatus}}</option>
+            </select> 
+        <div class="help-block"></div>
+        </div>                    
+    </div>
+</div>    
+<div class="row">
+    
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="Scheme">Scheme</label>
+            <select  class="form-control show-tick" ngModel name="scheme"  (change)="onScheme(scheme)"  #scheme="ngModel" required>
+                <option *ngFor="let scheme of schemes" [value]="scheme.scId">{{scheme.scName}}</option>
+            </select>
+            <div class="help-block"></div>
+        </div>        
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label">zone</label>
+            <select  class="form-control show-tick" ngModel name="zone" [disabled]="!zonedisable" (change)="onZone(zone)" #zone="ngModel" required>
+                <option *ngFor="let zone of zones" [value]="zone.znId">{{zone.znName}}</option>
+            </select>
+            <div class="help-block"></div>
+        </div>                    
+    </div>
+    <div class="col-md-4">
+        <div class="form-group" >
+
+            <label class="control-label" for="route">Choose Route</label>
+            <select class="form-control show-tick selectpicker" multiple ngModel name="route"  (change)="onRoute(route.viewModel)"  #route="ngModel" [disabled]="!routedisable" required>
+                <option  style="color: black;" *ngFor="let route of routes" [value]="route.rtId">{{route.rtName}}</option>
+            </select>
+
+            <label class="control-label" for="scheme">Route Selected: {{routesSelected}}</label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="physicaladdress">Physical Address</label>
+            <input type="text" class="form-control" name="physicaladdress" ngModel #physicaladdress="ngModel" required>
+            <div class="help-block" *ngIf="!physicaladdress.valid && physicaladdress.touched"><p>please enter physical address</p></div>
+        </div>        
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="landno">Land No</label>
+            <input type="text" id="landno" class="form-control" name="landno" ngModel #landno="ngModel" >
+            <div class="help-block" *ngIf="!landno.valid && landno.touched"><p>please enter Land No</p></div>
+        </div>        
+    </div>
+    <!-- <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="serialno">Serial Number</label>
+            <input type="text" id="Connectionfee" class="form-control" name="serialno" ngModel #serialno="ngModel">
+            <div class="help-block" *ngIf="!serialno.valid && serialno.touched"><p>please enter Serial No</p></div>
+        </div>                    
+    </div> -->
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="status">Account Opening Reason</label>
+            <select  class="form-control show-tick" ngModel name="openingreason" #openingreason="ngModel" required>
+                <option *ngFor="let account of accounts" [value]="account">{{account}}</option>
+            </select> 
+        <div class="help-block" *ngIf="openingreason.touched && !openingreason.valid">Please Choose opening reason</div>
+        </div>        
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="metersize">Meter Size(in inches)</label>
+            <select  class="form-control show-tick" ngModel name="metersize" #metersize="ngModel" required>
+                <option *ngFor="let metersize of metersizes" [value]="metersize">{{metersize}}</option>
+            </select> 
+        <div class="help-block"></div>
+        </div>                    
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="krapin">Kra Pin</label>
+            <input type="text" class="form-control" name="krapin" ngModel #krapin="ngModel" required>
+            <div class="help-block" *ngIf="!krapin.valid && krapin.touched"><p>please enter Kra Pin</p></div>
+        </div>        
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="Deposit">Deposit</label>
+            <input type="text" id="Deposit" class="form-control" name="Deposit" ngModel #Deposit="ngModel" >
+            <div class="help-block" *ngIf="!Deposit.valid && Deposit.touched"><p>please enter Deposit</p></div>
+        </div>        
+    </div>
+</div>
+
+
+
+<div class="row">
+    
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="Connectionfee">Connectionfee</label>
+            <input type="text" id="Connectionfee" class="form-control" name="Connectionfee" ngModel #Connectionfee="ngModel">
+            <div class="help-block" *ngIf="Connectionfee.touched && !Connectionfee.valid"><p>please enter connection Fee</p></div>
+        </div>                    
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="Labour">Labour</label>
+            <input type="text" id="Labour" class="form-control" name="Labour" ngModel #Labour="ngModel">
+
+            <div class="help-block" *ngIf="Labour.touched && !Labour.valid"><p>please enter Labour Amount</p></div>
+        </div>        
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="meternumber">Meter Number</label>
+            <input type="text" id="meternumber" class="form-control" name="meternumber" ngModel #meternumber="ngModel" disabled>
+
+            <div class="help-block" *ngIf="meternumber.touched && !meternumber.valid"><p>please enter meter Number</p></div>
+        </div>                    
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label for="othercharges">Other Charges</label>
+        <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>other charges</mat-label>
+                <mat-select ngModel name="othercharges" #othercharges="ngModel" multiple required>
+                  <mat-option *ngFor="let extracharge of chargesList" [value]="extracharge">{{extracharge}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div class="help-block" *ngIf="othercharges.touched && !othercharges.valid"> Please Choose extra charge</div>
+        </div>
+    </div>
+</div>
+<!-- <div class="row">
+    <div class="col-md-6">
+        <div class="form-group field-persondetails-phone_number required">
+            <label class="control-label" for="persondetails-phone_number">other charges</label>
+            <select  class="form-control show-tick" ngModel name="othercharge" #othercharge="ngModel">
+                <option *ngFor="let othercharge of othercharges" [value]="othercharge">{{othercharge}}</option>
+            </select> 
+        <div class="help-block"></div>
+        </div>                    
+    </div>
+</div> -->
+
+
+
+
+<div class="form-group">
+    <button type="submit" class="btn btn-success" [disabled]="!form.valid">Save</button>
+</div>
+    
+</form>
+
+</div>
+
+<div *ngIf="isLoading">
+        <app-loading-spinner></app-loading-spinner>
+</div>
+<div *ngIf="message" class="help-block">{{message}}</div>
+</div>

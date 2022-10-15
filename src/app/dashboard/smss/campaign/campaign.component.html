@@ -1,0 +1,130 @@
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+    <h1>New Campaign</h1>
+    </div>
+    <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item" ><a routerLink="/admin/">Home</a></li>
+    <li class="breadcrumb-item active" ><a routerLink="/admin/smss">Smss</a></li>
+    <li class="breadcrumb-item active">New Campaign</li>
+    </ol>
+    </div>
+    </div>
+    </div>
+</section>
+<div class="content alternate-theme" style="background-color: white; color: black; padding: 40px;">
+<div class="">
+<form (ngSubmit)="onSubmit(form)" #form="ngForm">    
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="name">Campaign Name</label>
+            <input type="text" class="form-control" name="cname" ngModel #cname="ngModel" required>
+            <div  class="help-block" *ngIf="cname.touched && !cname.valid"><p>Please enter campaign name</p></div>
+        </div>        
+    </div>
+    <div class="col-md-4">
+        <label class="control-label" for="customertype" >Send To</label>
+        <select  class="form-control" ngModel name="sendto" #sendto="ngModel" required>
+            <option *ngFor="let sender of senders" [value]="sender">{{sender}}</option>
+        </select> 
+    </div>
+    <div class="col-md-4">
+        <label class="control-label" for="usertype" >User Type</label>
+        <select  class="form-control" ngModel name="usertype" #usertype="ngModel" required>
+            <option *ngFor="let usertype of usertypes" [value]="usertype">{{usertype}}</option>
+        </select> 
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+            <label class="control-label" for="taskassignper" >Task Assign Per</label>
+            <select  class="form-control" ngModel name="taskassignper" #taskassignper="ngModel" (change)="onTask(taskassignper)" required>
+                <option *ngFor="let taskassignper of taskassignments" [value]="taskassignper">{{taskassignper}}</option>
+            </select>    
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label" for="status">Campaign Type</label>
+            <select  class="form-control show-tick" ngModel name="campaigntype" #campaigntype="ngModel">
+                <option *ngFor="let campaigntype of campaigntypes" [value]="campaigntype">{{campaigntype}}</option>
+            </select> 
+        <div class="help-block"></div>
+        </div>        
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <mat-form-field>
+                <mat-label>Choose date</mat-label>
+                <input matInput [matDatepicker]="picker2" ngModel name="date">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>                    
+    </div>
+</div>    
+<div class="row">
+    
+    <div *ngIf="selectscheme || selectzone || selectroute " class="col-md-4">
+        <div class="form-group">
+            <label  class="control-label" for="Scheme">Scheme</label>
+            <select  class="form-control show-tick" ngModel name="scheme"  (change)="onScheme(scheme)"  #scheme="ngModel" required>
+                <option *ngFor="let scheme of schemes" [value]="scheme.scId">{{scheme.scName}}</option>
+            </select>
+            <div class="help-block"></div>
+        </div>        
+    </div>
+    <div *ngIf=" selectzone || selectroute " class="col-md-4">
+        <div class="form-group">
+            <label class="control-label">zone</label>
+            <select  class="form-control show-tick" ngModel name="zone" [disabled]="!zonedisable" (change)="onZone(zone)" #zone="ngModel" required>
+                <option *ngFor="let zone of zones" [value]="zone.znId">{{zone.znName}}</option>
+            </select>
+            <div class="help-block"></div>
+        </div>                    
+    </div>
+    <div *ngIf="selectroute" class="col-md-4">
+        <div class="form-group" >
+
+            <label class="control-label" for="route">Choose Route</label>
+            <select class="form-control show-tick selectpicker" multiple ngModel name="route"  (change)="onRoute(route.viewModel)"  #route="ngModel" [disabled]="!routedisable" required>
+                <option  style="color: black;" *ngFor="let route of routes" [value]="route.rtId">{{route.rtName}}</option>
+            </select>
+
+            <label class="control-label" for="scheme">Route Selected: {{routesSelected}}</label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="control-label" for="Scheme">Message</label>
+            <div class="form-line">
+                <textarea rows="4" class="form-control no-resize" placeholder="type message" ngModel name="message" required></textarea>
+            </div>
+            <div class="help-block"></div>
+        </div>        
+    </div>
+</div>
+
+
+
+<div class="form-group">
+    <button type="submit" class="btn btn-success" disabled >Create</button>
+</div>
+    
+</form>
+
+</div>
+
+<div *ngIf="isLoading">
+        <app-loading-spinner></app-loading-spinner>
+</div>
+<div *ngIf="message" class="help-block">{{message}}</div>
+</div>

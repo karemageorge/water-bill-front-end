@@ -1,0 +1,74 @@
+<section class="content">
+    <mat-card class="container alternate-theme">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div class="search-box">
+            <mat-form-field color="primary">
+              <input (keyup)="applyFilter($event)" matInput placeholder="Search by customer name" >
+              <mat-icon color="primary" matSuffix style="font-size: 1.2em">search</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="action-button" fxLayoutGap="25px">
+            <!-- <button mat-raised-button color="primary" >
+              <mat-icon>download</mat-icon>&nbsp;&nbsp;Import Customers
+            </button>
+            <button routerLink="/admin/customers/createcustomer"
+            mat-raised-button color="primary" >
+              <mat-icon>person_add</mat-icon>&nbsp;&nbsp;Create Customer
+            </button> -->
+          </div>
+        </div>
+        <div>
+          <table mat-table  class=" table-bordered table-striped" [dataSource]="dataSource" matSort>
+    
+    
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Id </h3></th>
+              <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            </ng-container>
+      
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Name </h3></th>
+              <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+            </ng-container>
+      
+            <!-- Account no Column -->
+            <ng-container matColumnDef="kraPin">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>kraPin</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.kraPin}} </td>
+            </ng-container>
+      
+            <!-- External ID Column -->
+            <ng-container matColumnDef="CustType">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>CustType</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.CustType}} </td>
+            </ng-container>
+    
+    
+            <ng-container matColumnDef="Scheme">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Scheme</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.Scheme}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="Zone">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Zone</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.Zone}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="Route">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Route</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.Route}} </td>
+            </ng-container>
+      
+      
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="logData(row)" class="select-row">
+            </tr>
+          </table>
+      
+          <mat-paginator  [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]"
+            showFirstLastButtons></mat-paginator>
+        </div>
+      
+    </mat-card>
+    </section>

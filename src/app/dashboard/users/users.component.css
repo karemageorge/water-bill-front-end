@@ -1,0 +1,140 @@
+.container {
+    margin-top: 30px;
+}
+.action-button {
+    margin-left: auto;
+}
+
+.search-button {
+    min-width: 30px;
+    margin: 4px;
+    margin-left: 10px;
+    border: 2px solid red;
+    text-decoration: darkblue;
+}
+table {
+    width: 100%;
+}
+tr.select-row:hover {
+    cursor: pointer;
+  }
+tr:nth-child(odd).td{
+    color : black;
+}
+.mat-form-field-placeholder{
+    color: black;
+}
+.mat-card {
+    background-color: #ffffff;
+}
+input{
+    color: black;
+}
+
+
+
+/* 
+.data {
+    display: block;
+    width: 95vw;
+    overflow: auto;   
+}
+
+.mat-card {
+    min-width: max-content;
+    max-width: max-content;
+}
+.table {
+    width: 100vw;
+    max-width: 100%;
+    overflow: auto;
+    margin-bottom: 10px;
+    display: table;
+    border-collapse: collapse;
+    margin: 0px;
+    background-color: rgb(238, 238, 238);
+}
+.row,
+    .header-row {
+        display: table-row;
+        min-height: 36px !important;
+}
+    .cell,
+    .header-cell {
+        word-wrap: initial;
+        display: table-cell;
+        padding: 0px 5px;
+        line-break: unset;
+        width: fit-content;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: middle;
+        text-align: center;
+}
+    .header-row,
+    .header-cell {
+        margin: 0 auto;
+        min-height: 100px !important;
+        text-align: center;
+        vertical-align: middle;
+        align-self: center;
+}
+    .sort-header {
+        display: flex;
+        align-content: center;
+        text-align: center;
+        justify-content: center;
+        font-size: 12pt;
+}
+    .header-cell {
+        font-weight: bold;
+    } */
+
+    /* .mat-table {
+        overflow-x: scroll;
+      }
+      
+      .mat-cell,
+      .mat-header-cell {
+        word-wrap: initial;
+        display: table-cell;
+        padding: 0px 10px;
+        line-break: unset;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: middle;
+      }
+      
+      .mat-row,
+      .mat-header-row {
+        display: table-row;
+      } */
+
+      .example-container {
+        height: 400px;
+        width: max-content;
+        max-width: 100%;
+        overflow: auto;
+      }
+      
+      table {
+        width: 800px;
+      }
+      
+      td.mat-column-star {
+        width: 20px;
+        padding-right: 8px;
+      }
+      
+      th.mat-column-position, td.mat-column-position {
+        padding-left: 8px;
+      }
+      
+      .mat-table-sticky-border-elem-right {
+        border-left: 1px solid #e0e0e0;
+      }
+      
+      .mat-table-sticky-border-elem-left {
+        border-right: 1px solid #e0e0e0;
+      }

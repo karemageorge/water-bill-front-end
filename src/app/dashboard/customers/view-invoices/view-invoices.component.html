@@ -1,0 +1,46 @@
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+    <h1>Customer</h1>
+    </div>
+    <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item active">Customers</li>
+    </ol>
+    </div>
+    </div>
+    </div>
+</section>
+<section class="content alternate-theme">
+    <mat-card class="client-card container-fluid">
+
+        <mat-card-header fxLayout="column" class="header">
+            <mat-card-title align="center">Invoice Details</mat-card-title>
+                <mat-card-subtitle align="start">
+                    <label for=""><span style="font-size: 15px;">Name:</span> {{userDetails?.customerName | uppercase}}</label><br>
+                    <label for=""><span style="font-size: 15px;">Invoice Code:</span> {{userDetails?.invo_code | uppercase}}</label><br>
+                    <label for=""><span style="font-size: 15px;">Invoice Amount:</span> {{userDetails?.invo_amount | uppercase}}</label><br>
+                    <!-- <label for=""><span style="font-size: 15px;">Invoice Created Date:</span> {{userDetails?.customerName | uppercase}}</label><br> -->
+                </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-tab-group>
+            <mat-tab label="Invoice Details"> 
+              <app-invoice-details [invoiceID]="invoid"></app-invoice-details>
+            </mat-tab>
+            <mat-tab label="Customer Accounts"> 
+                <app-customer-accounts [customeID]="id"></app-customer-accounts>
+            </mat-tab>
+            <!-- <mat-tab label="Third"> 
+              <app-pledges [customeID]="userDetails?.cAccId"></app-pledges>
+            </mat-tab> -->
+          </mat-tab-group>
+        
+            <router-outlet ></router-outlet>
+        
+          </mat-card-content>
+        
+    </mat-card>
+</section>

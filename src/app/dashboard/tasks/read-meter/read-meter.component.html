@@ -1,0 +1,203 @@
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+    <h1>Meter Reading Tasks</h1>
+    </div>
+    <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item"><a routerLink="/admin/index">Home</a></li>
+    <li class="breadcrumb-item active"><a routerLink="/admin/tasks" >Tasks</a></li>
+    <li class="breadcrumb-item active">Read-Meter</li>
+    </ol>
+    </div>
+    </div>
+    </div>
+</section>
+<div class="alternate-theme">
+<mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="form1.control">
+
+        <div>
+
+            
+            <div class="search-box">
+                <mat-form-field color="primary">
+                  <input matInput placeholder="Search by User:" name="search" ngModel #search="ngModel">
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="onSearch(search)">
+                    Search
+                  <mat-icon color="accent" matSuffix style="font-size: 1.2em">search</mat-icon>
+                </button>
+            </div>
+            
+            <table mat-table  class=" table-bordered table-striped" [dataSource]="dataSource" matSort>
+      
+              <!-- "Invoice#","Date","DueDate","Customer","CreatedBy","Amount","InvoiceBalance" -->
+              <ng-container matColumnDef="UserName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> UserName</h3></th>
+                <td mat-cell *matCellDef="let row"> {{row.usrUsername}} </td>
+              </ng-container>
+        
+              <!-- Name Column -->
+              <ng-container matColumnDef="FirstName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> FirstName </h3></th>
+                <td mat-cell *matCellDef="let row"> {{row.usrFirstName}} </td>
+              </ng-container>
+        
+              <!-- Account no Column -->
+              <ng-container matColumnDef="LastName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>LastName</h3> </th>
+                <td mat-cell *matCellDef="let row"> {{row.usrLastName}} </td>
+              </ng-container>
+        
+              <!-- External ID Column -->
+              <ng-container matColumnDef="Email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Email</h3> </th>
+                <td mat-cell *matCellDef="let row"> {{row.usrEmail}} </td>
+              </ng-container>
+      
+      
+              <ng-container matColumnDef="PhoneNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Phone #</h3> </th>
+                <td mat-cell *matCellDef="let row"> {{row.usrMobileNumber}} </td>
+              </ng-container>
+      
+              <!-- <ng-container matColumnDef="AssignedTo">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>AssignedTo</h3> </th>
+                  <td mat-cell *matCellDef="let row"> {{row.AssignedTo}} </td>
+              </ng-container> -->
+        
+        
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="logData(row)" class="select-row">
+              </tr>
+            </table>
+        
+            <mat-paginator  [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]"
+              showFirstLastButtons></mat-paginator>
+          </div>
+
+
+          
+        <form #form1="ngForm">
+            <ng-template matStepLabel>Choose User from table</ng-template>
+
+            <label *ngIf="firstLast" for="fisrtLast">Task Assigned To:<span>{{firstLast}}</span></label>
+            <!-- <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+            </mat-form-field> -->
+            <div>
+            <button mat-raised-button matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="form2.control" label="More Details">
+
+        <br>
+        <br>
+        <br>
+      <form (ngSubmit)="onSubmit(form2)" #form2="ngForm">
+        
+
+
+        <div class="row">
+            <!-- <div class="col-md-3">
+                <div class="form-group">
+                    <br>
+                    
+                    <mat-form-field >
+                        <mat-label>Choose Start date</mat-label>
+                        <input matInput [matDatepicker]="picker" ngModel name="startdate">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                <div class="help-block"></div>
+                </div>        
+            </div> -->
+            <div class="col-md-4">
+                <br>
+                <mat-form-field>
+                    <mat-label>Choose End date</mat-label>
+                    <input matInput [matDatepicker]="picker2" ngModel name="enddate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            <div class="help-block"></div>        
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label" for="scheme">Scheme</label>
+                    <select  class="form-control show-tick" ngModel name="scheme"  (change)="onScheme(scheme)"  #scheme="ngModel">
+                        <option value="" disabled selected hidden>Select Scheme</option>
+                        <option *ngFor="let scheme of schemes" [value]="scheme.scId">{{scheme.scName}}</option>
+                    </select>
+                <div class="help-block"></div>
+                </div>        
+            </div>
+            <div class="col-md-4">
+                <label class="control-label" for="zone" >Zone</label>
+                <select  class="form-control show-tick" ngModel name="zone" [disabled]="!zonedisable" (change)="onZone(zone)" #zone="ngModel">
+                  <option value="" disabled selected hidden>Select Zone</option>
+                    <option *ngFor="let zone of zones" [value]="zone.znId">{{zone.znName}}</option>
+                </select> 
+            <div class="help-block"></div>        
+            </div>
+        </div> 
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" >
+
+                    <label class="control-label" for="scheme">Choose Routes</label>
+                    <select class="form-control show-tick selectpicker" multiple ngModel name="routes"  (change)="onRoute(route.viewModel)"  #route="ngModel" [disabled]="!routedisable">
+                        <option  style="color: black;" *ngFor="let route of routes" [value]="route.rtId">{{route.rtName}}</option>
+                    </select>
+
+                    <label class="control-label" for="scheme">Routes Selected: {{routesSelected}}</label>
+                    <!-- <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let route of routes">
+                          <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                          {{route}}
+                        </li>
+                      </ul> -->
+
+                
+                </div>        
+            </div>
+            <!-- <div class="col-md-6">
+                <select class="form-control show-tick" ngModel name="person">
+                    <option value="">-- Choose Zone --</option>
+                    <option value="pastor">Pastor</option>
+                    <option value="church">Church</option>
+                </select>
+            <div class="help-block"></div>        
+            </div> -->
+        </div> 
+    
+
+
+
+        <button mat-raised-button type="submit">Create Task</button>
+
+        <div *ngIf="message" class="help-block">{{message}}</div>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <!-- <button mat-button matStepperNext>Next</button> -->
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

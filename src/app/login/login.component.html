@@ -1,0 +1,65 @@
+
+<body class="hold-transition login-page">
+    <div class="login-box">
+    
+    
+    <div class="card">
+    <div class="card-body login-card-body">
+        <div class="login-logo">
+            <a class="navbar-brand" href="#">
+                <img src="\assets\images\rwm.png" alt="..." height="100">
+            </a>
+        </div>
+    <h5 class="login-box-msg">Water Bill Management</h5>
+    <hr>
+    <br>
+
+    <div *ngIf="isLoading">
+        <app-loading-spinner></app-loading-spinner>
+    </div>
+
+
+    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+    <p style="color:red">{{error}}</p>
+    <div class="input-group mb-3" *ngIf="!isLoginMode">
+    <input type="text" class="form-control" name="name" id="name" ngModel required #name="ngModel" placeholder="enter name">
+    <div class="input-group-append">
+    <div class="input-group-text">
+    <span class="fas fa-envelope"></span>
+    </div>
+    </div>
+    </div>
+    
+    <div class="input-group mb-3">
+    <input type="email" class="form-control" placeholder="Username" ngModel name="email" required #username="ngModel" >
+    <div class="input-group-append">
+    <div class="input-group-text">
+    <span class="fas fa-envelope"></span>
+    </div>
+    </div>
+    </div>
+    <p style="color:red" class="help-block" *ngIf="username.touched && !username.valid">Please enter username</p>
+    <div class="input-group mb-3">
+    <input type="password" class="form-control" placeholder="Password" ngModel name="password" required #password="ngModel">
+    <div class="input-group-append">
+    <div class="input-group-text">
+    <span class="fas fa-lock"></span>
+    </div>
+    </div>
+    </div>
+    <p style="color:red" class="help-block" *ngIf="password.touched && !password.valid">Please enter password</p>
+    <br>
+    <div class="row">
+    <div class="col-4">
+    <button type="submit"  class="btn btn-primary btn-block" [disabled]="!authForm.valid">{{isLoginMode ? 'Login' : 'Sign Up'}}</button>
+    </div>
+    </div>
+    </form>
+    <br>
+    <hr>
+    
+    </div>
+    
+    </div>
+    </div>
+    

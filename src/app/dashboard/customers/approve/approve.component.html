@@ -1,0 +1,325 @@
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+    <h1>Approve Customer</h1>
+    </div>
+    <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item"><a routerLink="/admin/index">Home</a></li>
+    <li class="breadcrumb-item active"><a routerLink="/admin/customers" >customers</a></li>
+    <li class="breadcrumb-item active">Approve Customer</li>
+    </ol>
+    </div>
+    </div>
+    </div>
+</section>
+<div class="alternate-theme">
+<mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="form1.control">
+
+        <div>
+
+            
+            <div class="search-box">
+                <mat-form-field color="primary">
+                  <input matInput placeholder="Search by Name:" name="search" ngModel #search="ngModel">
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="onSearch(search)">
+                    Search
+                  <mat-icon color="accent" matSuffix style="font-size: 1.2em">search</mat-icon>
+                </button>
+              </div>
+            
+              <div class="example-container mat-elevation-z8" tabindex="0">
+                <table mat-table  class=" table-bordered table-striped" [dataSource]="dataSource" matSort>
+          
+          
+                  <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> customerId </h3></th>
+                    <td mat-cell *matCellDef="let row"> {{row?.customerId}} </td>
+                  </ng-container>
+            
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Name    </h3></th>
+                    <td mat-cell *matCellDef="let row"> {{row?.customerName}} </td>
+                  </ng-container>
+            
+                  <!-- Account no Column -->
+                  <ng-container matColumnDef="kraPin">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>kraPin    </h3> </th>
+                    <td mat-cell *matCellDef="let row"> {{row?.custKraPin}} </td>
+                  </ng-container>
+          
+                  <ng-container matColumnDef="cMobileNumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  MobileNumber  </h3> </th>
+                    <td mat-cell *matCellDef="let row"> {{row?.customerMobPhone}} </td>
+                  </ng-container>
+            
+                  <!-- External ID Column -->
+                  <ng-container matColumnDef="CustType">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  CustType  </h3> </th>
+                    <td mat-cell *matCellDef="let row"> {{row?.cutTypeName}} </td>
+                  </ng-container>
+          
+          
+                  <ng-container matColumnDef="Scheme">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  Scheme  </h3> </th>
+                    <td mat-cell *matCellDef="let row"> {{row?.scName}} </td>
+                  </ng-container>
+          
+                  <ng-container matColumnDef="Zone">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  Zone  </h3> </th>
+                    <td mat-cell *matCellDef="let row"> {{row?.znName}} </td>
+                  </ng-container>
+          
+                  <ng-container matColumnDef="Route">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  Route  </h3> </th>
+                    <td mat-cell *matCellDef="let row"> {{row?.rtName}} </td>
+                  </ng-container>
+          
+                  <ng-container matColumnDef="cAccountStatus">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  cAccountStatus  </h3> </th>
+                    <td mat-cell *matCellDef="let row"> {{row?.cAccountStatus}} </td>
+                  </ng-container>
+          
+          
+                  <!-- <ng-container matColumnDef="cMobileNumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>cMobileNumber</h3> </th>
+                    <td mat-cell *matCellDef="let row"> {{row?.cMobileNumber}} </td>
+                  </ng-container> -->
+          
+                  <ng-container matColumnDef="cMtrNo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  cMtrNo  </h3> </th>
+                    <td mat-cell *matCellDef="let row"> {{row?.cMtrNo}} </td>
+                  </ng-container>
+          
+                  <ng-container matColumnDef="cAccBal">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  cAccBal  </h3> </th>
+                    <td mat-cell *matCellDef="let row"> {{row?.cAccBal}} </td>
+                  </ng-container>
+          
+                  <ng-container matColumnDef="bal_previous_meter_reading">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>bal_previous_meter_reading</h3> </th>
+                    <td mat-cell *matCellDef="let row"> {{row?.bal_previous_meter_reading}} </td>
+                  </ng-container>
+            
+            
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="select-row" (click)="onClick(row)">
+                  </tr>
+                </table>
+              </div>
+                <mat-paginator  [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]"
+                  showFirstLastButtons></mat-paginator>
+              
+
+          
+        <form #form1="ngForm">
+            <ng-template matStepLabel>Choose Customer to Approve</ng-template>
+
+            <label *ngIf="customername" for="fisrtLast">Customer Selected:<span>{{customername}}</span></label>
+            <!-- <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+            </mat-form-field> -->
+            <div>
+            <button [disabled]="!next" mat-raised-button matStepperNext>Next</button>
+            </div>
+        </form>
+        </div>
+    </mat-step>
+    <mat-step [stepControl]="form2.control" label="Approve Customer">
+
+        <br>
+        <br>
+        <br>
+        <form (ngSubmit)="onSubmit(form2)" #form2="ngForm">    
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="name">CustomerName</label>
+                        <input type="text" class="form-control" name="name" [ngModel]="customerData?.customerName" #name="ngModel" required>
+                        <div  class="help-block" *ngIf="name.touched && !name.valid"><p>Please enter name</p></div>
+                    </div>        
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label" for="customertype" >Customer Type</label>
+                    <input type="text" class="form-control" name="customertype" [ngModel]="customerData?.cutTypeName" #customertype="ngModel" required>
+                <!-- <div class="help-block"><p>please choose customer type</p></div>         -->
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="phonenumber">Phone Number</label>
+                        <input type="text" class="form-control" name="phonenumber" [ngModel]="customerData?.customerMobPhone" #phonenumber="ngModel" required>
+                    <div class="help-block" *ngIf="phonenumber.touched && !phonenumber.valid"><p>please enter phone number</p></div>
+                    </div>        
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="passportnumber">National Or Passport Number* (required)</label>
+                        <input type="text" class="form-control" name="passportnumber" [ngModel]="customerData?.custNationalId" #passportnumber="ngModel" required>
+                    <div class="help-block" *ngIf="!passportnumber.valid && passportnumber.touched"><p>please enter national Id</p>
+                    </div>
+                    </div>        
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="status">Account Opening Reason</label>
+                        <select  class="form-control show-tick" ngModel name="account" #account="ngModel" required>
+                            <option *ngFor="let account of accounts" [value]="account">{{account}}</option>
+                        </select> 
+                    <div class="help-block"></div>
+                    </div>        
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="MeterStatus">MeterStatus</label>
+                        <input type="text" class="form-control" name="MeterStatus" [ngModel]="customerData?.custMeterStatus" #MeterStatus="ngModel" required>
+                    <div class="help-block"></div>
+                    </div>                    
+                </div>
+            </div>    
+            <div class="row">
+                
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="Scheme">Scheme</label>
+                        <input type="text" class="form-control" name="Scheme" [ngModel]="customerData?.scName" #Scheme="ngModel" required>
+                        <div class="help-block"></div>
+                    </div>        
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">zone</label>
+                        <input type="text" class="form-control" name="zone" [ngModel]="customerData?.znName" #zone="ngModel" required>
+                        <div class="help-block"></div>
+                    </div>                    
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group" >
+            
+                        <label class="control-label" for="route">Choose Route</label>
+                        <input type="text" class="form-control" name="route" [ngModel]="customerData?.rtName" #route="ngModel" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="physicaladdress">Physical Address* (required)</label>
+                        <input type="text" class="form-control" name="physicaladdress" ngModel #physicaladdress="ngModel" required>
+                        <div class="help-block" *ngIf="!physicaladdress.valid && physicaladdress.touched"><p>please enter physical address</p></div>
+                    </div>        
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="landno">Land No</label>
+                        <input type="text" id="landno" class="form-control" name="landno" ngModel #landno="ngModel" >
+                        <div class="help-block" *ngIf="!landno.valid && landno.touched"><p>please enter Land No</p></div>
+                    </div>        
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="serialno">Serial Number</label>
+                        <input type="text" id="Connectionfee" class="form-control" name="serialno" ngModel #serialno="ngModel">
+                        <div class="help-block" *ngIf="!serialno.valid && serialno.touched"><p>please enter Serial No</p></div>
+                    </div>                    
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="metersize">Meter Size* (in inches)</label>
+                        <input type="text" id="metersize" class="form-control" name="metersize" [ngModel]="customerData?.custMtrSize" #metersize="ngModel" required>
+                    <div class="help-block"></div>
+                    </div>                    
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="krapin">Kra Pin* (required)</label>
+                        <input type="text" class="form-control" name="krapin" [ngModel]="customerData?.custKraPin" #krapin="ngModel" required>
+                        <div class="help-block" *ngIf="!krapin.valid && krapin.touched"><p>please enter Kra Pin</p></div>
+                    </div>        
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="Deposit">Deposit* (required)</label>
+                        <input type="text" id="Deposit" class="form-control" name="Deposit" ngModel #Deposit="ngModel" required>
+                        <div class="help-block" *ngIf="!Deposit.valid && Deposit.touched"><p>please enter Deposit</p></div>
+                    </div>        
+                </div>
+            </div>
+            
+            
+            
+            <div class="row">
+                
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="Connectionfee">Connectionfee</label>
+                        <input type="text" id="Connectionfee" class="form-control" name="Connectionfee" ngModel #Connectionfee="ngModel">
+                        <div class="help-block" *ngIf="Connectionfee.touched && !Connectionfee.valid"><p>please enter connection Fee</p></div>
+                    </div>                    
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="Labour">Labour</label>
+                        <input type="text" id="Labour" class="form-control" name="Labour" ngModel #Labour="ngModel">
+            
+                        <div class="help-block" *ngIf="Labour.touched && !Labour.valid"><p>please enter Labour Amount</p></div>
+                    </div>        
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="meternumber">Meter Number</label>
+                        <input type="text" id="meternumber" class="form-control" name="meternumber" ngModel #meternumber="ngModel">
+            
+                        <div class="help-block" *ngIf="meternumber.touched && !meternumber.valid"><p>please enter meter Number</p></div>
+                    </div>                    
+                </div>
+            </div>
+            
+            <!-- <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group field-persondetails-phone_number required">
+                        <label class="control-label" for="persondetails-phone_number">other charges</label>
+                        <select  class="form-control show-tick" ngModel name="othercharge" #othercharge="ngModel">
+                            <option *ngFor="let othercharge of othercharges" [value]="othercharge">{{othercharge}}</option>
+                        </select> 
+                    <div class="help-block"></div>
+                    </div>                    
+                </div>
+            </div> -->
+            
+            
+            
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-success" [disabled]="!form2.valid">Approve</button>
+            </div>
+
+            <div *ngIf="isLoading">
+                <app-loading-spinner></app-loading-spinner>
+            </div>
+            <div *ngIf="message" class="help-block">{{message}}</div>
+                
+            </form>
+            
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

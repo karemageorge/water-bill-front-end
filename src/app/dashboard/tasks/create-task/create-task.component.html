@@ -1,0 +1,100 @@
+<div class="content alternate-theme" style="background-color: white; color: black; padding: 40px;">
+    <div class="person-details-form">
+    <form [formGroup]="form">    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group field-persondetails-title">
+                <label class="control-label" for="persondetails-title">Task Type</label>
+                <select class="form-control show-tick" formControlName="tskType">
+                    <option value="">-- Choose Task Type --</option>
+                    <option value="MeterReading">MeterReading</option>
+                    <option value="Disconnection">Disconnection</option>
+                    <option value="SewerDisconnection">Sewer Disconnection</option>
+                </select>
+                <div class="help-block"></div>
+            </div>        
+        </div>
+        <div class="col-md-6">
+            <div class="form-group field-persondetails-first_name required">
+                <label class="control-label" for="persondetails-first_name">Period Assigned</label>
+                <input type="text" id="customertype" class="form-control" formControlName="customertype" >
+            <div class="help-block"></div>
+            </div>        
+        </div>
+    </div>
+    
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <!-- <label class="control-label" for="persondetails-last_name">Start Date</label> -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Choose Start date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="startdate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            <div class="help-block"></div>
+            </div>        
+        </div>
+        <div class="col-md-6">
+            <mat-form-field appearance="fill">
+                <mat-label>Choose End date</mat-label>
+                <input matInput [matDatepicker]="picker2" formControlName="enddate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        <div class="help-block"></div>        
+        </div>
+    </div> 
+
+
+
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group field-persondetails-middle_name">
+                <label class="control-label" for="persondetails-middle_name">Task Assigned to:</label>
+                <input type="text" id="phonenumber" class="form-control" formControlName="taskAssignedTo" >
+            <div class="help-block"></div>
+            </div>        
+        </div>
+        <div class="col-md-6">
+            <div class="form-group field-persondetails-title">
+                <label class="control-label" for="persondetails-title">Task Assign Per</label>
+                <select class="form-control show-tick" formControlName="tskAssignPer">
+                    <option value="">-- Choose Task Assign Per --</option>
+                    <option value="Scheme">Scheme</option>
+                    <option value="Route">Route</option>
+                    <option value="Account">Account</option>
+                </select>
+                <div class="help-block"></div>
+            </div>        
+        </div>
+    </div>
+
+    <div *ngIf="meterreading" class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="persondetails-title">Meter Reading Type</label>
+                <select class="form-control show-tick" ngModel formControlName="meterReadingType">
+                    <option value="">-- Choose Meter Reading Type --</option>
+                    <option value="monthly">monthly</option>
+                    <option value="final">final</option>
+                </select>
+                <div class="help-block"></div>
+            </div>        
+        </div>
+    </div>
+
+    
+    
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Save</button>    </div>
+    </form></div>
+    
+    </div>

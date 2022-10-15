@@ -1,0 +1,47 @@
+<section class="content">
+    <mat-card class="container-fluid alternate-theme">
+        <div>
+          <table mat-table  class=" table-bordered table-striped" [dataSource]="dataSource" matSort>
+    
+            <!-- "Description","Return_Status","Quantity","Price","Amount" -->
+            <ng-container matColumnDef="Description">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Description </h3></th>
+              <td mat-cell *matCellDef="let row"> {{row?.invodDescription}} </td>
+            </ng-container>
+      
+            <!-- Name Column -->
+            <ng-container matColumnDef="Return_Status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Return_Status </h3></th>
+              <td mat-cell *matCellDef="let row"> {{row?.invodStatus}} </td>
+            </ng-container>
+      
+            <!-- Account no Column -->
+            <ng-container matColumnDef="Quantity">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Quantity</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row?.invodQtyId}} </td>
+            </ng-container>
+      
+            <!-- External ID Column -->
+            <ng-container matColumnDef="Price">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Price</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row?.invodUnitPrice}} </td>
+            </ng-container>
+    
+    
+            <ng-container matColumnDef="Amount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Amount</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row?.invodAmount}} </td>
+            </ng-container>
+      
+      
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="select-row">
+            </tr>
+          </table>
+      
+          <mat-paginator  [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]"
+            showFirstLastButtons></mat-paginator>
+        </div>
+      
+    </mat-card>
+    </section>

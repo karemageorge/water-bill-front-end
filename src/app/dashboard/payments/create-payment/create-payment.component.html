@@ -1,0 +1,341 @@
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+    <h1>Create Payments</h1>
+    </div>
+    <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item"><a routerLink="/admin/">Home</a></li>
+    <li class="breadcrumb-item active"><a routerLink="/admin/payments">Payments</a></li>
+    <li class="breadcrumb-item active">Create Payment</li>
+    </ol>
+    </div>
+    </div>
+    </div>
+</section>
+<div class="alternate-theme">
+    <mat-horizontal-stepper [linear]="true" #stepper>
+        <mat-step [stepControl]="form1.control">
+    
+            <div>
+    
+                
+                <div class="search-box">
+                    <mat-form-field color="primary">
+                      <input matInput placeholder="Search by Customer Name:" name="search" ngModel #search="ngModel">
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" (click)="onSearch(search)">
+                        Search
+                      <mat-icon color="accent" matSuffix style="font-size: 1.2em">search</mat-icon>
+                    </button>
+                </div>
+                
+                <div class="example-container mat-elevation-z8" tabindex="0">
+                    <table mat-table  class=" table-bordered table-striped" [dataSource]="dataSource" matSort>
+              
+                      <!-- "Zone","Account_Number","Old_Acc","Account_Name","Account_Balance","Mobile_Number","Scheme","Zone","Route","Account_Status","National_Id","Deposit","Serial_Number" -->
+                      <!-- <ng-container matColumnDef="Zone">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Zone </h3></th>
+                        <td mat-cell *matCellDef="let row"> {{row?.znName}} </td>
+                      </ng-container> -->
+                
+                      <!-- Name Column -->
+                      <ng-container matColumnDef="Account_Number">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Account_Number   </h3></th>
+                        <td mat-cell *matCellDef="let row"> {{row?.defaultAccNumber}} </td>
+                      </ng-container>
+                
+                      <!-- Account no Column -->
+                      <ng-container matColumnDef="Old_Acc">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Old_Acc</h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.cLegacyAccNo}} </td>
+                      </ng-container>
+              
+                      <ng-container matColumnDef="Account_Name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  Account_Name  </h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.customerName}} </td>
+                      </ng-container>
+                
+                      <!-- External ID Column -->
+                      <ng-container matColumnDef="Account_Balance">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  Account_Balance  </h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.cAccBalSh}} </td>
+                      </ng-container>
+              
+              
+                      <ng-container matColumnDef="Scheme">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  Scheme  </h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.scName}} </td>
+                      </ng-container>
+              
+                      <ng-container matColumnDef="Zone">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  Zone  </h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.znName}} </td>
+                      </ng-container>
+              
+                      <ng-container matColumnDef="Route">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  Route  </h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.rtName}} </td>
+                      </ng-container>
+              
+                      <ng-container matColumnDef="Mobile_Number">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  Mobile_Number  </h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.cMobileNumber}} </td>
+                      </ng-container>
+              
+              
+                      <ng-container matColumnDef="Account_Status">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Account_Status</h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.customerStatus}} </td>
+                      </ng-container>
+              
+                      <ng-container matColumnDef="National_Id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  National_Id  </h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.custNationalId}} </td>
+                      </ng-container>
+              
+                      <ng-container matColumnDef="Deposit">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  Deposit  </h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.cDeposit}} </td>
+                      </ng-container>
+              
+                      <ng-container matColumnDef="Serial_Number">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Serial_Number</h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.custFormSerialNo}} </td>
+                      </ng-container>
+                
+                
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="submitCust(row)" class="select-row">
+                      </tr>
+                    </table>
+                  </div>
+                    <mat-paginator  [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]"
+                      showFirstLastButtons></mat-paginator>
+                  
+              </div>
+    
+    
+              
+            <form #form1="ngForm">
+                <ng-template matStepLabel>Choose Customer Account</ng-template>
+    
+                <label *ngIf="firstLast" for="fisrtLast">Customer Name:<span>{{firstLast}}</span></label>
+                <!-- <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+                </mat-form-field> -->
+                <div>
+                <button mat-raised-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="form2.control">
+    
+            <div *ngIf="invoice">
+    
+                
+                <div class="search-box">
+                    <mat-form-field color="primary">
+                      <input matInput placeholder="Search by Customer Name:" name="search2" ngModel #search2="ngModel">
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" (click)="onSearch(search2)">
+                        Search
+                      <mat-icon color="accent" matSuffix style="font-size: 1.2em">search</mat-icon>
+                    </button>
+                </div>
+                
+                <div>
+                    <table mat-table  class=" table-bordered table-striped" [dataSource]="dtSource" matSort>
+              
+                      <!-- "Invoice#","Date","DueDate","Customer","CreatedBy","Amount","InvoiceBalance" -->
+                      <ng-container matColumnDef="Invoice">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Invoice# </h3></th>
+                        <td mat-cell *matCellDef="let row"> {{row?.invoCode}} </td>
+                      </ng-container>
+                
+                      <!-- Name Column -->
+                      <ng-container matColumnDef="Date">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Date </h3></th>
+                        <td mat-cell *matCellDef="let row"> {{row?.invoCreatedDate}} </td>
+                      </ng-container>
+                
+                      <!-- Account no Column -->
+                      <ng-container matColumnDef="DueDate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>DueDate</h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.invoDueDate}} </td>
+                      </ng-container>
+                
+                      <!-- External ID Column -->
+                      <ng-container matColumnDef="Customer">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Customer</h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.invoCustName}} </td>
+                      </ng-container>
+              
+              
+                      <ng-container matColumnDef="CreatedBy">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>CreatedBy</h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.accountName}} </td>
+                      </ng-container>
+              
+                      <ng-container matColumnDef="Amount">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Amount</h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.invoAmount}} </td>
+                      </ng-container>
+              
+                      <ng-container matColumnDef="InvoiceBalance">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>InvoiceBalance</h3> </th>
+                        <td mat-cell *matCellDef="let row"> {{row?.invoBalance}} </td>
+                      </ng-container>
+                
+                
+                      <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayColumns;" (click)="onInvoice(row)" class="select-row">
+                      </tr>
+                    </table>
+                
+                    <mat-paginator  [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]"
+                      showFirstLastButtons></mat-paginator>
+                  </div>
+              </div>
+    
+    
+              
+            <form #form2="ngForm">
+                <ng-template matStepLabel>Choose Invoice</ng-template>
+    
+                <label *ngIf="Last" for="Last">Invoice Amount:<span>{{Last}}</span></label>
+                <!-- <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+                </mat-form-field> -->
+                <div>
+                <button mat-raised-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="form2.control" label="Create Payment">
+    
+            <br>
+            <br>
+            <br>
+          <form (ngSubmit)="onSubmit(form3)" #form3="ngForm">
+            
+    
+    
+            <div class="row">
+                <!-- <div class="col-md-3">
+                    <div class="form-group">
+                        <br>
+                        
+                        <mat-form-field >
+                            <mat-label>Choose Start date</mat-label>
+                            <input matInput [matDatepicker]="picker" ngModel name="startdate">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    <div class="help-block"></div>
+                    </div>        
+                </div> -->
+                <div class="col-md-4">
+                  <br>
+                  <mat-form-field>
+                      <mat-label>Choose date</mat-label>
+                      <input matInput [matDatepicker]="picker2" ngModel name="date" required>
+                      <mat-hint>MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                <div class="help-block"></div>        
+                </div>
+
+                <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label" for="scheme">Amount</label>
+                    <input type="text" class="form-control" ngModel name="amount" #amount="ngModel" required>
+                <div *ngIf="amount.touched && !amount.valid" class="help-block"></div>
+                </div>        
+                </div>
+
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                      <label class="control-label" for="tendered">Amt Tendered</label>
+                      <input type="text" class="form-control" ngModel name="tendered" #tendered="ngModel">
+                  <div *ngIf="tendered.touched && !tendered.valid" class="help-block"> Please enter amount tendered </div>
+                </div>        
+                </div>
+            </div> 
+    
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="paymentmode">Payment Mode</label>
+                        <select  class="form-control show-tick" ngModel name="paymentmode"  #paymentmode="ngModel" required>
+                            <option *ngFor="let status of paymodes" [value]="status">{{status}}</option>
+                        </select>
+                    <div *ngIf="paymentmode.touched && !paymentmode.valid" class="help-block"> Please enter Payment Mode</div>
+                    </div>        
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="scheme">Ref:</label>
+                        <input type="text" class="form-control" ngModel name="reference" #reference="ngModel" required>
+                    <div *ngIf="reference.touched && !reference.valid" class="help-block"> Please enter reference number</div>
+                    </div>        
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="scheme">Bank Name: </label>
+                        <input type="text" class="form-control" ngModel name="bankname" #bankname="ngModel">
+                    <div class="help-block"></div>
+                    </div>        
+                </div>
+                
+                
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label" for="chqdrawer">Cheque Drawer: </label>
+                    <input type="text" class="form-control" ngModel name="chqdrawer" #chqdrawer="ngModel">
+                <div class="help-block"></div>
+                </div>        
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                  <label class="control-label" for="invoiceamt">Invoice Amount: </label>
+                  <input type="text" class="form-control" [ngModel]="Last" name="invoiceamt" #invoiceamt="ngModel" disabled>
+              <div class="help-block"></div>
+              </div>        
+            </div>
+
+            </div>
+        
+    
+    
+    
+            <button mat-raised-button color="primary" type="submit" [disabled]="!form3.valid">Create Payment</button>
+    
+            <div *ngIf="message" class="help-block">{{message}}</div>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <!-- <button mat-button matStepperNext>Next</button> -->
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p>You are now done.</p>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>

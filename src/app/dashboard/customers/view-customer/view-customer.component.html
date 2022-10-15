@@ -1,0 +1,56 @@
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+    <h1>Customer</h1>
+    </div>
+    <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item active">Customers</li>
+    </ol>
+    </div>
+    </div>
+    </div>
+</section>
+<section class="content alternate-theme">
+    <mat-card class="client-card container-fluid">
+
+        <mat-card-header fxLayout="column" class="header">
+            <mat-card-title align="center">Customer Details</mat-card-title>
+                <mat-card-subtitle align="start">
+                    <label for=""><span style="font-size: 15px;">Name:</span> {{userDetails?.customerName | uppercase}}</label><br>
+                    <label for=""><span style="font-size: 15px;">Phone Number:</span> {{userDetails?.customerMobPhone | uppercase}}</label><br>
+                    <label for=""><span style="font-size: 15px;">ACC NO:</span> {{userDetails?.defaultAccNumber | uppercase}}</label><br>
+                    <!-- <label for=""><span style="font-size: 15px;">OLD ACC NO:</span> {{userDetails?.scName | uppercase}}</label><br>
+                    <label for=""><span style="font-size: 15px;">Email:</span> {{userDetails?.customerName | uppercase}}</label><br> -->
+                    <label for=""><span style="font-size: 15px;">Scheme:</span> {{userDetails?.scName | uppercase}}</label><br>
+                    <label for=""><span style="font-size: 15px;">Zone:</span> {{userDetails?.znName | uppercase}}</label><br>
+                    <label for=""><span style="font-size: 15px;">Route:</span> {{userDetails?.rtName | uppercase}}</label><br>
+                </mat-card-subtitle>
+                <mat-card-actions align="end">
+                    <button mat-raised-button color="white" (click)="printBill()">Print Bill</button>
+                    <button mat-raised-button color="white" (click)="sendBill()">Send Bill</button>
+                    <button mat-raised-button color="white" (click)="printStatement()">Print Statement</button>
+                    <button mat-raised-button color="white" (click)="emailStatement()">Email Statement</button>
+                </mat-card-actions>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-tab-group>
+            <mat-tab label="Account Transactions"> 
+              <app-account-transactions [customeID]="id"></app-account-transactions>
+            </mat-tab>
+            <mat-tab label="Meter Readings"> 
+              <app-meter-reading [customeID]="id"></app-meter-reading>
+            </mat-tab>
+            <!-- <mat-tab label="Third"> 
+              <app-pledges [customeID]="userDetails?.cAccId"></app-pledges>
+            </mat-tab> -->
+          </mat-tab-group>
+        
+            <router-outlet ></router-outlet>
+        
+          </mat-card-content>
+        
+    </mat-card>
+</section>

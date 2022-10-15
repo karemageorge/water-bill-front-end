@@ -1,0 +1,162 @@
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+    <h1>Reports Form</h1>
+    </div>
+    <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item"><a routerLink="/admin/">Home</a></li>
+    <li class="breadcrumb-item active">Reports</li>
+    <li class="breadcrumb-item active">Report-form</li>
+    </ol>
+    </div>
+    </div>
+    </div>
+</section>
+<div class="content alternate-theme" style="background-color: white; color: black; padding: 40px;">
+    <form (ngSubmit)="onSubmit(form)" #form="ngForm">    
+    <div *ngIf="period" class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name">PERIOD</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <select  class="form-control show-tick" ngModel name="period"  #period="ngModel" required>
+                    <option *ngFor="let period of periods" [value]="period?.v_key_id">{{period?.desc}}</option>
+                </select>
+                <div *ngIf="period.touched && !period.valid" class="help-block"> Please choose Period </div>
+            </div>        
+        </div>
+    </div>
+    <div *ngIf="region" class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name">REGION</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <select  class="form-control show-tick" ngModel name="region"  #region="ngModel" required>
+                    <option *ngFor="let region of regions" [value]="region.v_key_id">{{region.desc}}</option>
+                </select>
+                <div *ngIf="region.touched && !region.valid" class="help-block">Please select region</div>
+            </div>        
+        </div>
+    </div>
+    <div *ngIf="zone" class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name">ZONE</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <select  class="form-control show-tick" ngModel name="zone"  #zone="ngModel" required>
+                    <option *ngFor="let zone of zones" [value]="zone.v_key_id">{{zone.desc}}</option>
+                </select>
+                <div *ngIf="zone.touched && !zone.valid" class="help-block">Please select zone</div>
+            </div>        
+        </div>
+    </div>
+    <div *ngIf="rt" class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name" id="routename">ROUTE</label>
+            <div>
+                
+            </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <select  class="form-control show-tick" ngModel name="route"  #route="ngModel">
+                    <option *ngFor="let route of routes" [value]="route.v_key_id">{{route.desc}}</option>
+                </select>
+                <div *ngIf="route.touched && !route.valid" class="help-block">Please select route</div>
+            </div>        
+        </div>
+    </div>
+    <div *ngIf="startdate" class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name">START DATE</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field align="right">
+                <input matInput [matDatepicker]="startdate" ngModel name="startdate" required>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
+                <mat-datepicker #startdate></mat-datepicker>
+            </mat-form-field>       
+        </div>
+    </div>
+    <div *ngIf="enddate" class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name">END DATE</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field align="right">
+                <input matInput [matDatepicker]="enddate" ngModel name="enddate" required>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="enddate"></mat-datepicker-toggle>
+                <mat-datepicker #enddate></mat-datepicker>
+            </mat-form-field>         
+        </div>
+    </div>
+    <div *ngIf="format" class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name">FORMAT</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <select  class="form-control show-tick" ngModel name="format"  #format="ngModel" required>
+                    <option *ngFor="let format of formats" [value]="format">{{format}}</option>
+                </select>
+                <div *ngIf="format.touched && !format.valid" class="help-block">Please select format</div>
+            </div>        
+        </div>
+    </div>
+    <div *ngIf="user" class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name">USER</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <select  class="form-control show-tick" ngModel name="user"  #user="ngModel" required>
+                    <option *ngFor="let user of users" [value]="user.v_key_id">{{user.desc}}</option>
+                </select>
+                <div *ngIf="user.touched && !user.valid" class="help-block">Please select user</div>
+            </div>        
+        </div>
+    </div>
+
+    <div *ngIf="tasktype" class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name">TASK TYPE</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <select  class="form-control show-tick" ngModel name="tasktype"  #tasktype="ngModel" required>
+                    <option *ngFor="let tasktype of tasktypes" [value]="tasktype.v_key_id">{{tasktype.desc}}</option>
+                </select>
+                <div *ngIf="tasktype.touched && !tasktype.valid" class="help-block">Please select tasktype</div>
+            </div>        
+        </div>
+    </div>
+
+    <button [disabled]="!form.valid" type="submit">Generate</button>
+    </form>
+</div>
+    

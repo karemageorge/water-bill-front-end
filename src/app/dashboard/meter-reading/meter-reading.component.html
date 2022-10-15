@@ -1,0 +1,130 @@
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+    <h1>Meter Readings</h1>
+    </div>
+    <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item"><a routerLink="/admin/meter-readings">Home</a></li>
+    <li class="breadcrumb-item active">MeterReadings</li>
+    </ol>
+    </div>
+    </div>
+    </div>
+</section>
+<section class="content">
+    <mat-card class="container-fluid alternate-theme">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div class="search-box">
+            <mat-form-field color="primary">
+              <input matInput placeholder="Search by Customer Name:" name="search" ngModel #search="ngModel">
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="onSearch(search)">
+                Search
+              <mat-icon color="accent" matSuffix style="font-size: 1.2em">search</mat-icon>
+            </button>
+            <!-- <mat-form-field color="primary">
+              <input (keyup)="applyFilter($event)" matInput placeholder="Search by customer name" >
+              <mat-icon color="primary" matSuffix style="font-size: 1.2em">search</mat-icon>
+            </mat-form-field> -->
+          </div>
+          <div class="action-button" fxLayoutGap="25px">
+            <button mat-raised-button color="primary" routerLink="/admin/meter-readings/exceptions">
+              <!-- <fa-icon icon="download"></fa-icon>&nbsp;&nbsp;Import Client -->
+              <mat-icon>download</mat-icon>&nbsp;&nbsp;Exceptions
+            </button>  
+            <button routerLink="/admin/meter-readings/createreading"
+            mat-raised-button color="primary" >
+              <!-- <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;Create Client -->
+              <mat-icon>person_add</mat-icon>&nbsp;&nbsp;Create Reading
+            </button>
+          </div>
+        </div>
+        <div>
+          <table mat-table  class=" table-bordered table-striped" [dataSource]="dataSource" matSort>
+    
+            <!-- "id","customer","meterreader","mtrno","previousreading","currentreading","status" -->
+            <!-- <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Id </h3></th>
+              <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            </ng-container> -->
+      
+            <!-- Name Column -->
+            <ng-container matColumnDef="customer">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Customer </h3></th>
+              <td mat-cell *matCellDef="let row"> {{row.custName}} </td>
+            </ng-container>
+      
+            <!-- Account no Column -->
+            <ng-container matColumnDef="meterreader">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Meterreader</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.username}} </td>
+            </ng-container>
+      
+            <!-- External ID Column -->
+            <!-- <ng-container matColumnDef="mtrno">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Meter Number</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.mtrId}} </td>
+            </ng-container> -->
+    
+    
+            <ng-container matColumnDef="previousreading">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Previous-Reading</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.mtrPreviousReading}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="currentreading">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Current Reading</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.mtrCurrentReading}} </td>
+            </ng-container>
+    
+            <!-- <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Status</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.mtrStatus}} </td>
+            </ng-container> -->
+            <ng-container matColumnDef="zone">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Zone</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.znName}} </td>
+            </ng-container>
+            <!-- <ng-container matColumnDef="route">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>route</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.rtName}} </td>
+            </ng-container> -->
+            <ng-container matColumnDef="readingtype">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>ReadingType</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.mtrReadingType}} </td>
+            </ng-container>
+            <!-- <ng-container matColumnDef="averageunits">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>averageunits</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.mtrAvgUnits}} </td>
+            </ng-container> -->
+            <ng-container matColumnDef="unitstobill">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>UnitstoBill</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.mtrUnits}} </td>
+            </ng-container>
+            <ng-container matColumnDef="accountnumber">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>AccountNumber</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.accNumber}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="meterimage">
+              <th mat-header-cell *matHeaderCellDef> Image </th>
+              <td mat-cell *matCellDef="let row"> 
+                <img src="'http://188.166.29.198:8080/'+{{row.mtrImageUrl}}" style="height: 40px;width: 40px;"/>
+              </td>
+            </ng-container>
+            
+      
+      
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="logData(row)" class="select-row">
+            </tr>
+          </table>
+      
+          <mat-paginator [length]="rowitems" [pageSize]="20" [pageSizeOptions]="[20, 40, 60, 100]"
+            showFirstLastButtons></mat-paginator>
+        </div>
+      
+    </mat-card>
+    </section>

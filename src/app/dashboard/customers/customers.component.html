@@ -1,0 +1,132 @@
+
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+    <h1>Customers</h1>
+    </div>
+    <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item"><a routerLink="/admin/">Home</a></li>
+    <li class="breadcrumb-item active">Customers</li>
+    </ol>
+    </div>
+    </div>
+    </div>
+</section>
+<section class="content">
+<mat-card class="container-fluid alternate-theme">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <div class="search-box">
+        <mat-form-field color="primary">
+          <input matInput placeholder="Search by Name:" name="search" ngModel #search="ngModel">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="onSearch(search)">
+            Search
+          <mat-icon color="accent" matSuffix style="font-size: 1.2em">search</mat-icon>
+        </button>
+      </div>
+      <div class="action-button" fxLayoutGap="25px">
+        <button mat-raised-button color="primary" (click)="onApprove()">
+          <!-- <fa-icon icon="download"></fa-icon>&nbsp;&nbsp;Import Client -->
+          <mat-icon>download</mat-icon>&nbsp;&nbsp;Approve
+        </button>
+        <button mat-raised-button color="primary" (click)="onCreate()">
+          <!-- <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;Create Client -->
+          <mat-icon>person_add</mat-icon>&nbsp;&nbsp;Bypass Customer
+        </button>
+        <button mat-raised-button color="primary" routerLink="/admin/customers/newcustomer">
+          <!-- <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;Create Client -->
+          <mat-icon>person_add</mat-icon>&nbsp;&nbsp;New Customer
+        </button>
+      </div>
+    </div>
+    <div class="example-container mat-elevation-z8" tabindex="0">
+      <table align="center" mat-table  class=" table-bordered table-striped" [dataSource]="dataSource" matSort>
+
+
+        <ng-container matColumnDef="InvoiceNo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> InvoiceNo </h3></th>
+          <td mat-cell *matCellDef="let row"> {{row?.invo_code}} </td>
+        </ng-container>
+  
+        <!-- Name Column -->
+        <ng-container matColumnDef="InvoiceAmount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Invoice Amount   </h3></th>
+          <td mat-cell *matCellDef="let row"> {{row?.invo_amount}} </td>
+        </ng-container>
+  
+        <!-- Account no Column -->
+        <ng-container matColumnDef="Balance">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Balance   </h3> </th>
+          <td mat-cell *matCellDef="let row"> {{row?.invo_balance}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cMobileNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  MobileNumber  </h3> </th>
+          <td mat-cell *matCellDef="let row"> {{row?.customerMobPhone}} </td>
+        </ng-container>
+  
+        <!-- External ID Column -->
+        <ng-container matColumnDef="CustType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  CustType  </h3> </th>
+          <td mat-cell *matCellDef="let row"> {{row?.cutTypeName}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Scheme">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  Scheme  </h3> </th>
+          <td mat-cell *matCellDef="let row"> {{row?.scName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Zone">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  Zone  </h3> </th>
+          <td mat-cell *matCellDef="let row"> {{row?.znName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Route">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  Route  </h3> </th>
+          <td mat-cell *matCellDef="let row"> {{row?.rtName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cAccountStatus">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  cAccountStatus  </h3> </th>
+          <td mat-cell *matCellDef="let row"> {{row?.cAccountStatus}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="CustomerName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Customer Name</h3> </th>
+          <td mat-cell *matCellDef="let row"> {{row?.customerName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cMtrNo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  cMtrNo  </h3> </th>
+          <td mat-cell *matCellDef="let row"> {{row?.cMtrNo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cAccBal">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>  cAccBal  </h3> </th>
+          <td mat-cell *matCellDef="let row"> {{row?.cAccBal}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="bal_previous_meter_reading">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>bal_previous_meter_reading</h3> </th>
+          <td mat-cell *matCellDef="let row"> {{row?.bal_previous_meter_reading}} </td>
+        </ng-container>
+  
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/admin/customers/view-invoices',row.customerId,row.custInvoId]" class="select-row">
+        </tr>
+      </table>
+    </div>
+      <mat-paginator  [pageSize]="20" [pageSizeOptions]="[20, 40, 60, 80, 100]"
+        showFirstLastButtons></mat-paginator>
+    
+
+
+   
+</mat-card>
+</section>
+

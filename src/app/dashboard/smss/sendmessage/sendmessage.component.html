@@ -1,0 +1,56 @@
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+    <h1>Send Message</h1>
+    </div>
+    <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item" ><a routerLink="/admin/">Home</a></li>
+    <li class="breadcrumb-item active" ><a routerLink="/admin/smss">Smss</a></li>
+    <li class="breadcrumb-item active">Send Message</li>
+    </ol>
+    </div>
+    </div>
+    </div>
+</section>
+<div class="content alternate-theme" style="background-color: white; color: black; padding: 40px;">
+    <div class="">
+    <form (ngSubmit)="onSubmit(form)" #form="ngForm">    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label" for="phonenumber">Phone Number</label>
+                <input type="text" class="form-control" name="phonenumber" ngModel #phonenumber="ngModel" required>
+                <div  class="help-block" *ngIf="phonenumber.touched && !phonenumber.valid"><p>Please enter Phone Number</p></div>
+            </div>        
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <label class="control-label" for="Scheme">Message</label>
+                <div class="form-line">
+                    <textarea rows="4" class="form-control no-resize" placeholder="type message" ngModel name="message" #message="ngModel" required></textarea>
+                </div>
+                <div *ngIf="message.touched && !message.valid" class="help-block"> please enter message </div>
+            </div>        
+        </div>
+    </div>
+    
+    
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-success" [disabled]="!form.valid" >Save</button>
+    </div>
+    <div *ngIf="isLoading">
+        <app-loading-spinner></app-loading-spinner>
+    </div>
+    <div *ngIf="mess" class="help-block"><p>{{mess}}</p></div>
+    </form>
+    
+    </div>
+    
+    
+    </div>

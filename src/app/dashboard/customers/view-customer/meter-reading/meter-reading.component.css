@@ -1,0 +1,29 @@
+.container {
+    margin-top: 30px;
+}
+.action-button {
+    margin-left: auto;
+}
+
+.search-button {
+    min-width: 30px;
+    margin: 4px;
+    margin-left: 10px;
+    border: 2px solid red;
+    text-decoration: darkblue;
+}
+table {
+    width: 100%;
+}
+tr.select-row:hover {
+    cursor: pointer;
+  }
+tr:nth-child(odd).td{
+    color : black;
+}
+.mat-form-field-placeholder{
+    color: black;
+}
+.mat-card {
+    background-color: #ffffff;
+}

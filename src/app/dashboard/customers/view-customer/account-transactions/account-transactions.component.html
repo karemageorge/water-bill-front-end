@@ -1,0 +1,74 @@
+<section class="content">
+    <mat-card class="container alternate-theme">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div class="search-box">
+            <mat-form-field color="primary">
+              <input (keyup)="applyFilter($event)" matInput placeholder="Search by customer name" >
+              <mat-icon color="primary" matSuffix style="font-size: 1.2em">search</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="action-button" fxLayoutGap="25px">
+            <!-- <button mat-raised-button color="primary" >
+              <mat-icon>download</mat-icon>&nbsp;&nbsp;Import Customers
+            </button>
+            <button routerLink="/admin/customers/createcustomer"
+            mat-raised-button color="primary" >
+              <mat-icon>person_add</mat-icon>&nbsp;&nbsp;Create Customer
+            </button> -->
+          </div>
+        </div>
+        <div>
+          <table mat-table  class=" table-bordered table-striped" [dataSource]="dataSource" matSort>
+    
+            <!-- "TransactionCode","CreatedDate","Particulars","Amount","Type","BalanceBefore","BalanceAfter" -->
+            <ng-container matColumnDef="TransactionCode">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> TransactionCode </h3></th>
+              <td mat-cell *matCellDef="let row"> {{row?.trnCode}} </td>
+            </ng-container>
+      
+            <!-- Name Column -->
+            <ng-container matColumnDef="CreatedDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> CreatedDate </h3></th>
+              <td mat-cell *matCellDef="let row"> {{row?.trnCreatedDate}} </td>
+            </ng-container>
+      
+            <!-- Account no Column -->
+            <ng-container matColumnDef="Particulars">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Particulars</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row?.trnParticulars}} </td>
+            </ng-container>
+      
+            <!-- External ID Column -->
+            <ng-container matColumnDef="Amount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Amount</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row?.trnAmount}} </td>
+            </ng-container>
+    
+    
+            <ng-container matColumnDef="Type">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Type</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row?.trnType}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="BalanceBefore">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>BalanceBefore</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row?.trnBalBefore}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="BalanceAfter">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>BalanceAfter</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row?.trnBalAfter}} </td>
+            </ng-container>
+      
+      
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="select-row">
+            </tr>
+          </table>
+      
+          <mat-paginator  [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]"
+            showFirstLastButtons></mat-paginator>
+        </div>
+      
+    </mat-card>
+    </section>
