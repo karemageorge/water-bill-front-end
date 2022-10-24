@@ -7,14 +7,17 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { MeterReadingComponent } from './meter-reading.component';
 import { ExceptionsComponent } from './exceptions/exceptions.component';
 import { CreateReadingComponent } from './create-reading/create-reading.component';
+import { ImagePreviewComponent } from './image-preview/image-preview.component';
 
 
 @NgModule({
   declarations: [
     MeterReadingComponent,
     ExceptionsComponent,
-    CreateReadingComponent
+    CreateReadingComponent,
+    ImagePreviewComponent
   ],
+  entryComponents: [ ImagePreviewComponent ],
   imports: [
     CommonModule,
     MeterReadingRoutingModule,

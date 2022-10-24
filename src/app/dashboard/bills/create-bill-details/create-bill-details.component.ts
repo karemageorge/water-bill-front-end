@@ -32,28 +32,15 @@ export class CreateBillDetailsComponent implements OnInit {
   isLoading = false
   error : string
   firstLast : string
-  usrID : any
-  schemes : any[] = [
-    {scName: "mark", scId: 13 }, 
-  ]
-  zones : any[] = [{znId : 101, znName : "embu"}]
-  routedisable = false
-  message = ""
-
-  routes : any[]=["mark","george","stphen","kiumbe","mark","george","stphen","kiumbe","mark","george","stphen","kiumbe"]
-
-
-  now = new Date();
-
-
   
+  message = ""
+  billtypes : any[]
 
-  // dtSource? : taskItem[]
+  dtSource : any
+  displayedColumns : string[] = ["Invoice","Date","DueDate","Customer","CreatedBy","Amount","InvoiceBalance"] // "Actions",
   dataSource : any
-  // = [
-  //   {Invoice: "1", Date: "30/04/2020", DueDate:"30/05/2020", Customer:"george karema nguhu", CreatedBy:"Mumias", Amount:"1000", InvoiceBalance:"3000"},
-  // ]
-  displayedColumns : string[] = ["UserName","FirstName","LastName","Email","PhoneNumber"]
+  invoiceid : any
+  displaycolumns : string[]= ["Actions","Description","Return Status", "Qty","Price","Amount"]
 
   
 
@@ -61,67 +48,73 @@ export class CreateBillDetailsComponent implements OnInit {
   constructor(private router : Router, private dialog : MatDialog, private http : HttpClient, private _formBuilder: FormBuilder, private datePipe : DatePipe ) { }
 
   ngOnInit(): void {
-    this.http.post(environment.base_url+'/user/fetchUser.action?criteria=&txtSearch=', {} ,{
+
+    // fetch ivoices to add items to
+    this.http.post(environment.base_url+'/account/fetchInvoice.action?criteria=&txtSearch=&pendinginvoices_id=', {} ,{
       headers : new HttpHeaders({
           'content-type': 'application/x-www-form-urlencoded'
       })
   } ).subscribe(
         (resData: any) => {
+          // if (resData.success == false){
+          //   this.router.navigate(['/login.action'])
+          // }
+          // else {
             console.log(resData.data.result)
-            this.isLoading = true
             this.dataSource = new MatTableDataSource(resData.data.result);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
-        }
+          }
+        // } 
+        // (error: any) => {
+        //     console.log(error)
+        //     this.error = "Unable to Login please try again"
+        //     this.isLoading = false
+        // }
         )
-    
 
-        this.http.post(environment.base_url+'/msg/fetchScheme.action?scId=&query=', {} ,{
+        // fetch billtypes
+        this.http.post(environment.base_url+'/account/fetchBillTypes.action', {} ,{
           headers : new HttpHeaders({
               'content-type': 'application/x-www-form-urlencoded'
           })
-      } ).subscribe(
-            (resData: any) => {
-                console.log(resData.data.result)
-                this.isLoading = true
-                this.schemes = resData.data.result
-            })
+      } ).subscribe((resData : any)=>{
+        console.log(resData.data.result)
+        this.billtypes = resData.data.result
+      })
+
+
+      
 }
 //   ngAfterViewInit() {
 //     this.dataSource.paginator = this.paginator
 //     this.dataSource.sort = this.sort
 // }
 
-  onScheme(scheme : any){
+
+
+
+  logData(row: any){
+    console.log(row.invoCode)
     
-    console.log(scheme.viewModel)
+    this.firstLast = row.invoCode
+    console.log(this.firstLast)
+    this.invoiceid = row.invoId
 
-    const scId =  scheme.viewModel
-
-    this.http.post(environment.base_url+'/account/fetchAllZones.action?scId='+scId, {} ,{
+    // fetch ivoice Details
+    this.http.post(environment.base_url+'/account/fetchInvoiceDetail.action?criteria=&txtSearch=&invoId='+this.invoiceid, {} ,{
       headers : new HttpHeaders({
           'content-type': 'application/x-www-form-urlencoded'
       })
   } ).subscribe(
         (resData: any) => {
             console.log(resData.data.result)
-            this.isLoading = true
-            this.zones = resData.data.result
-        })
-    // http://188.166.29.198:8080/DEMO/account/fetchAllZones.action?scId=13
+            this.dtSource = new MatTableDataSource(resData.data.result);
+            this.dtSource.paginator = this.paginator;
+            this.dtSource.sort = this.sort;
+          }
+        )
 
-    this.zonedisable = true
-    
-  }
-
-
-
-  logData(row: any){
-    console.log(row.usrId)
-    
-    this.firstLast = row.usrFirstName+' '+row.usrLastName
-    console.log(this.firstLast)
-    this.usrID = row.usrId
   
     // this.router.navigate(['/admin/bills/view-bill'], row)
   }
@@ -135,79 +128,37 @@ export class CreateBillDetailsComponent implements OnInit {
     }
 
   onSearch(search : NgModel){
-      console.log(search.value)
-      const name = search.value
-      const url = environment.base_url+'/user/fetchUser.action?criteria=usrFirstName&txtSearch='+name
+    console.log(search.value)
+    const name = search.value
+    const url = environment.base_url+'/account/fetchInvoice.action?criteria=customerName&txtSearch='+name+'&pendinginvoices_id='
 
-      console.log(url)
+    console.log(url)
 
-      this.http.post(url, {} ,{
-        headers : new HttpHeaders({
-            'content-type': 'application/x-www-form-urlencoded'
-        })
-    } ).subscribe(
-          (resData: any) => {
-              console.log(resData.data.result)
-              this.isLoading = true
-              this.dataSource = new MatTableDataSource(resData.data.result);
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
-          } )
-    search.reset()
-    }
-
-onZone(zone: any){
-  console.log(zone.viewModel)
-  const znId = zone.viewModel
-
-  this.http.post(environment.base_url+'/account/fetchRoutes.action?zn_id='+znId+'&criteria=&txtSearch=', {} ,{
-    headers : new HttpHeaders({
-        'content-type': 'application/x-www-form-urlencoded'
-    })
-} ).subscribe(
-      (resData: any) => {
-          console.log(resData.data.result)
-          this.isLoading = true
-          this.routes = resData.data.result
+    this.http.post(url, {} ,{
+      headers : new HttpHeaders({
+          'content-type': 'application/x-www-form-urlencoded'
       })
-
-  // http://188.166.29.198:8080/DEMO/account/fetchRoutes.action
-  this.routedisable = true
+  } ).subscribe(
+        (resData: any) => {
+            console.log(resData.data.result)
+            this.dataSource = new MatTableDataSource(resData.data.result);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+        } )
+  search.reset()
     }
 
-onRoute(route: any){
-
-      
-      // http://188.166.29.198:8080/DEMO/account/fetchAllZones.action?scId=13
-      
-      console.log(route)
-      this.routesSelected = route
-
-
-    }
 
 onSubmit(form : NgForm){
 
   console.log(form.value)
-  const tskType = "MeterReading"
-  const readingType = "MONTHLY"
-  const tskAssignedTo = this.usrID
-  const startdate = String(this.datePipe.transform(this.now, 'dd/MM/yyyy')); // 👉️ 2/17/2022
-  const enddate = this.datePipe.transform(form.value.enddate, 'dd/MM/yyyy'); 
-  const pid = 66  // june 2022
-  const schemeid = form.value.scheme
-  const zoneid = form.value.zone
-  const routeid =  form.value.routes
+  let units = form.value.units
+  let description = form.value.description
+  let price = form.value.price
+  let billid = form.value.billtype
 
-  
-  console.log("start date is -----------",startdate)
-  console.log(enddate)
 
-  const url = environment.base_url+`/account/saveTask.action?tsk_id=&tsk_type=MeterReading&proceed_to_nxt_id=on&reading_type=
-  MONTHLY&dcnId=&disconnection_type=&tsk_pd_id=`+pid+`&customerType_id=&tskdMonths_id=&tskdBalance_id=&tskAssigned_to=`+tskAssignedTo+`&tskStart_date=
-  `+startdate+`&tskEnd_date=`+enddate+`&tsk_method_id=ROUTE&tskAccId_id=&tskScheme_id=`+schemeid+`&tskZone_id=`+zoneid+`&sup_rt_id=`+routeid+`&tskRoute_id=
-  `+routeid+`&RouteCriteria=&RouteSrchValue=&tskAssing_all_Routes=&RouteCriteria=&RouteAlocatedSrchValue=`
-
+  const url = environment.base_url+'/account/saveInvoiceDetail.action?invodInvId_id='+this.invoiceid+'&invodId_id=&invodQty_id='+units+'&invoBillId_id='+billid+'&invoBillName_id=&ts_test_req_id=&tsTstdId=&tstId=&ts_test_req_name=&capacity_id=&tkAssignedTo_name=&tkAssignedTo_id=&tru_name=&tru_id=&charged_by_id=&tskStart_date=&tskEnd_date=&invoRateId_id=&invodDescription_id='+description+'&rateMinimum=&rateMax=&rateValue='+price+'&rateAmountTotal=&rateType=&invodCreatedBy_id=&invodPrice_id=&invodCreatedDate_id=&invodUpdatedBy_id=&invodUpdatedDate_id='
   console.log('url is ----------------------------'+url)
 
   this.http.post(url, {} ,{
@@ -216,17 +167,70 @@ onSubmit(form : NgForm){
     })
 } ).subscribe(
       (resData: any) => {
-          console.log(resData.data.result)
-          if (resData.messages.message == "RECORD SAVED SUCCESSFULLY"){
-            this.message = "Task was successfully created"
-          }
-          else {
-            this.message = "unable to create task. Please try again"
-          }
           
+          alert(resData.messages.message)
+
+          console.log(resData.data.result)
+          form.reset()    
       } )
+
+      this.http.post(environment.base_url+'/account/fetchInvoiceDetail.action?criteria=&txtSearch=&invoId='+this.invoiceid, {} ,{
+        headers : new HttpHeaders({
+            'content-type': 'application/x-www-form-urlencoded'
+        })
+    } ).subscribe(
+          (resData: any) => {
+              console.log(resData.data.result)
+              this.dtSource = new MatTableDataSource(resData.data.result);
+              this.dtSource.paginator = this.paginator;
+              this.dtSource.sort = this.sort;
+            }
+          )
+}
+deleteitem(row: any){
+
+  console.log()
+  if(confirm("Are you sure to delete "+row.billName+" Invoice Item ? ")) {
+    console.log("Invoice to delete is ------ ", row.invodId)
+    this.http.post(environment.base_url+'/account/deleteInvoiceItem.action?invodId='+row.invodId, {} ,{
+      headers : new HttpHeaders({
+          'content-type': 'application/x-www-form-urlencoded'
+      })
+  } ).subscribe(
+        (resData: any) => {
+            alert(resData.messages.message)
+          }
+        
+        )
+  
 }
 
+this.http.post(environment.base_url+'/account/fetchInvoiceDetail.action?criteria=&txtSearch=&invoId='+this.invoiceid, {} ,{
+  headers : new HttpHeaders({
+      'content-type': 'application/x-www-form-urlencoded'
+  })
+} ).subscribe(
+    (resData: any) => {
+        console.log(resData.data.result)
+        this.dtSource = new MatTableDataSource(resData.data.result);
+        this.dtSource.paginator = this.paginator;
+        this.dtSource.sort = this.sort;
+      }
+    )
 
+    
+}
+finalize(){
+  this.http.post(environment.base_url+'/account/finaliseInvoice.action?action=SUBMIT&invoId='+this.invoiceid, {} ,{
+    headers : new HttpHeaders({
+        'content-type': 'application/x-www-form-urlencoded'
+    })
+} ).subscribe(
+      (resData: any) => {
+        alert(resData.messages.message)
+          
+        }
+      )
+}
 
 }

@@ -17,6 +17,7 @@ import { CreateBillDetailsComponent } from './create-bill-details/create-bill-de
     CreateBillComponent,
     CreateBillDetailsComponent
   ],
+  entryComponents:[ViewBillComponent],
   imports: [
     CommonModule,
     BillsRoutingModule,

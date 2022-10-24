@@ -5,7 +5,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { NgModel } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ImagePreviewComponent } from './image-preview/image-preview.component';
 
 @Component({
   selector: 'app-meter-reading',
@@ -18,13 +20,14 @@ export class MeterReadingComponent implements OnInit {
   @ViewChild(MatPaginator) paginator:MatPaginator;
 
   rowitems: any
+  searchbyoptions : any[] = ["customerName","cAccNumber"]
 
   displayedColumns : string[] = ["meterimage","accountnumber","customer","zone","previousreading","currentreading","unitstobill","readingtype","meterreader"] //,"mtrno","status","route","averageunits"
 
   
 
   dataSource : any
-  constructor(private router : Router, private http : HttpClient) { }
+  constructor(private dialog: MatDialog,private router : Router, private http : HttpClient) { }
 
   ngOnInit(): void {
 
@@ -65,8 +68,9 @@ export class MeterReadingComponent implements OnInit {
 
   onSearch(search : NgModel){
     console.log(search.value)
+    
     const name = search.value
-    const url = environment.base_url+'/account/fetchMeterReadingByUserId.action?criteria=customerName&txtSearch='+name+'&zn_id=&rt_id=&mtrType=&display_cancelled_records=display_cancelled_records'
+    const url = environment.base_url+'/account/fetchMeterReadingByUserId.action?criteria=cAccNumber&txtSearch='+name+'&zn_id=&rt_id=&mtrType=&display_cancelled_records=display_cancelled_records'
 
     console.log(url)
 
@@ -85,5 +89,12 @@ export class MeterReadingComponent implements OnInit {
   search.reset()
   }
 
-
+  openModal(imageSrc: any) {
+    console.log("Image source is -------",imageSrc)
+    const bsModalRef = this.dialog.open(ImagePreviewComponent, {
+      data : {imageSrc : imageSrc},
+      height: '400px',
+      width: '400px',
+    })
+  }
 }

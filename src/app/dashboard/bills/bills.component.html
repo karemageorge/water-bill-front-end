@@ -82,7 +82,7 @@
 
         <ng-container matColumnDef="Actions">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Actions</h3> </th>
-          <td mat-cell *matCellDef="let row"> <mat-icon>delete</mat-icon> </td>
+          <td mat-cell *matCellDef="let row"> <mat-icon (click)="delete(row)">delete</mat-icon><mat-icon (click)="view(row)">visibility</mat-icon><mat-icon (click)="print(row)">print</mat-icon></td>
         </ng-container>
   
   

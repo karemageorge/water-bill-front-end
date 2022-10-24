@@ -31,59 +31,71 @@
                 </button>
             </div>
             
-            <table mat-table  class=" table-bordered table-striped" [dataSource]="dataSource" matSort>
-      
-              <!-- "Invoice#","Date","DueDate","Customer","CreatedBy","Amount","InvoiceBalance" -->
-              <ng-container matColumnDef="UserName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> UserName</h3></th>
-                <td mat-cell *matCellDef="let row"> {{row.usrUsername}} </td>
-              </ng-container>
+            <div>
+              <table mat-table  class=" table-bordered table-striped" [dataSource]="dataSource" matSort>
         
-              <!-- Name Column -->
-              <ng-container matColumnDef="FirstName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> FirstName </h3></th>
-                <td mat-cell *matCellDef="let row"> {{row.usrFirstName}} </td>
-              </ng-container>
-        
-              <!-- Account no Column -->
-              <ng-container matColumnDef="LastName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>LastName</h3> </th>
-                <td mat-cell *matCellDef="let row"> {{row.usrLastName}} </td>
-              </ng-container>
-        
-              <!-- External ID Column -->
-              <ng-container matColumnDef="Email">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Email</h3> </th>
-                <td mat-cell *matCellDef="let row"> {{row.usrEmail}} </td>
-              </ng-container>
-      
-      
-              <ng-container matColumnDef="PhoneNumber">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Phone #</h3> </th>
-                <td mat-cell *matCellDef="let row"> {{row.usrMobileNumber}} </td>
-              </ng-container>
-      
-              <!-- <ng-container matColumnDef="AssignedTo">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>AssignedTo</h3> </th>
-                  <td mat-cell *matCellDef="let row"> {{row.AssignedTo}} </td>
-              </ng-container> -->
+                <!-- "Invoice#","Date","DueDate","Customer","CreatedBy","Amount","InvoiceBalance" -->
+                <ng-container matColumnDef="Invoice">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Invoice# </h3></th>
+                  <td mat-cell *matCellDef="let row"> {{row.invoCode}} </td>
+                </ng-container>
+          
+                <!-- Name Column -->
+                <ng-container matColumnDef="Date">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Date </h3></th>
+                  <td mat-cell *matCellDef="let row"> {{row.invoCreatedDate}} </td>
+                </ng-container>
+          
+                <!-- Account no Column -->
+                <ng-container matColumnDef="DueDate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>DueDate</h3> </th>
+                  <td mat-cell *matCellDef="let row"> {{row.invoDueDate}} </td>
+                </ng-container>
+          
+                <!-- External ID Column -->
+                <ng-container matColumnDef="Customer">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Customer</h3> </th>
+                  <td mat-cell *matCellDef="let row"> {{row.invoCustName}} </td>
+                </ng-container>
         
         
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="logData(row)" class="select-row">
-              </tr>
-            </table>
+                <ng-container matColumnDef="CreatedBy">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>CreatedBy</h3> </th>
+                  <td mat-cell *matCellDef="let row"> {{row.accountName}} </td>
+                </ng-container>
         
-            <mat-paginator  [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]"
-              showFirstLastButtons></mat-paginator>
-          </div>
+                <ng-container matColumnDef="Amount">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Amount</h3> </th>
+                  <td mat-cell *matCellDef="let row"> {{row.invoAmount}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="InvoiceBalance">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>InvoiceBalance</h3> </th>
+                  <td mat-cell *matCellDef="let row"> {{row.invoBalance}} </td>
+                </ng-container>
+        
+                <!-- <ng-container matColumnDef="Actions">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Actions</h3> </th>
+                  <td mat-cell *matCellDef="let row"> <mat-icon (click)="delete(row)">delete</mat-icon><mat-icon (click)="view(row)">visibility</mat-icon> </td>
+                </ng-container> -->
+          
+          
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="logData(row)" class="select-row">
+                </tr>
+              </table>
+          
+              <mat-paginator  [pageSize]="20" [pageSizeOptions]="[20, 40, 60, 80, 100]"
+                showFirstLastButtons></mat-paginator>
+            </div>
 
+            </div>
 
           
         <form #form1="ngForm">
             <ng-template matStepLabel>Choose Invoice to Add details to:</ng-template>
 
-            <label *ngIf="firstLast" for="fisrtLast">Task Assigned To:<span>{{firstLast}}</span></label>
+            <label *ngIf="firstLast" for="fisrtLast">Invoice Number:<span>{{firstLast}}</span></label>
             <!-- <mat-form-field appearance="fill">
             <mat-label>Name</mat-label>
             <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
@@ -98,96 +110,109 @@
         <br>
         <br>
         <br>
+      <div class="row form-group">
+      <div class="col-lg-6">
+        <h2>Add Item details </h2>
       <form (ngSubmit)="onSubmit(form2)" #form2="ngForm">
-        
-
-
-        <div class="row">
-            <!-- <div class="col-md-3">
-                <div class="form-group">
-                    <br>
-                    
-                    <mat-form-field >
-                        <mat-label>Choose Start date</mat-label>
-                        <input matInput [matDatepicker]="picker" ngModel name="startdate">
-                        <mat-hint>MM/DD/YYYY</mat-hint>
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                <div class="help-block"></div>
-                </div>        
-            </div> -->
-            <div class="col-md-4">
-                <br>
-                <mat-form-field>
-                    <mat-label>Date</mat-label>
-                    <input matInput [matDatepicker]="picker2" ngModel name="enddate">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker>
-                </mat-form-field>
-            <div class="help-block"></div>        
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label class="control-label" for="scheme">Invoice #</label>
-                    <input type="text" class="form-control">
-                <div class="help-block"></div>
-                </div>        
-            </div>
-            <div class="col-md-4">
-                <label class="control-label" for="zone" >Number Of Accounts</label>
-                <input type="text" class="form-control">
-            <div class="help-block"></div>        
-            </div>
-        </div> 
-
-
-        <!-- <div class="row">
-            <div class="col-md-6">
-                <div class="form-group" >
-
-                    <label class="control-label" for="scheme">Choose Routes</label>
-                    <select class="form-control show-tick selectpicker" multiple ngModel name="routes"  (change)="onRoute(route.viewModel)"  #route="ngModel" [disabled]="!routedisable">
-                        <option  style="color: black;" *ngFor="let route of routes" [value]="route.rtId">{{route.rtName}}</option>
-                    </select>
-
-                    <label class="control-label" for="scheme">Routes Selected: {{routesSelected}}</label> -->
-                    <!-- <ul class="list-group">
-                        <li class="list-group-item" *ngFor="let route of routes">
-                          <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                          {{route}}
-                        </li>
-                      </ul> -->
-
-                
-                <!-- </div>        
-            </div> -->
-            <!-- <div class="col-md-6">
-                <select class="form-control show-tick" ngModel name="person">
-                    <option value="">-- Choose Zone --</option>
-                    <option value="pastor">Pastor</option>
-                    <option value="church">Church</option>
+                <div class="row form-group">
+                    <label class="control-label" for="scheme">Qty/Units</label>
+                    <input type="text" class="form-control" ngModel name="units" #units="ngModel">
+                    <div class="help-block" *ngIf="units.touched && !units.valid"><p>please enter Units</p></div>
+                </div>
+                <div class="row form-group">
+                  <label class="control-label" for="scheme">Bill Type</label>
+                  <select  class="form-control show-tick" ngModel name="billtype"  #billtype="ngModel">
+                    <option value="" disabled selected hidden>Select billtype</option>
+                    <option *ngFor="let billtype of billtypes" [value]="billtype.billId">{{billtype.billName}}</option>
                 </select>
-            <div class="help-block"></div>        
-            </div> -->
-        <!-- </div>  -->
+                <div class="help-block" *ngIf="billtype.touched && !billtype.valid"><p>please choose billtype</p></div>       
+                </div>   
+                <div class="row form-group">
+                      <label class="control-label" for="scheme">Description</label>
+                      <input type="text" class="form-control" ngModel name="description" #description="ngModel">
+                      <div class="help-block" *ngIf="description.touched && !description.valid"><p>please enter description</p></div>       
+                </div>        
+                <div class="row form-group">
+                        <label class="control-label" for="scheme">Unit Price</label>
+                        <input type="text" class="form-control" ngModel name="price" #price="ngModel">
+                        <div class="help-block" *ngIf="price.touched && !price.valid"><p>please enter price</p></div>
+                </div> 
+                
+                <button mat-raised-button type="submit" color="primary" [disabled]="!form2.valid">Add</button>
+
+                <div *ngIf="message" class="help-block">{{message}}</div>
+        </form>
+                <!-- end of form -->
+        </div>     
+
+        <div class="col-lg-6">
+            <h2>Check Items Table to Approve </h2>
+            <table mat-table  class=" table-bordered table-striped" [dataSource]="dtSource" matSort>
+      
+              <!-- "Invoice#","Date","DueDate","Customer","CreatedBy","Amount","InvoiceBalance" -->
+              <ng-container matColumnDef="Description">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Description </h3></th>
+                <td mat-cell *matCellDef="let row"> {{row.invodDescription}} </td>
+              </ng-container>
+        
+              <!-- Name Column -->
+              <ng-container matColumnDef="Return Status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Return Status </h3></th>
+                <td mat-cell *matCellDef="let row"> {{row.invoCreatedDate}} </td>
+              </ng-container>
+        
+              <!-- Account no Column -->
+              <ng-container matColumnDef="Qty">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Qty</h3> </th>
+                <td mat-cell *matCellDef="let row"> {{row.invodQtyId}} </td>
+              </ng-container>
+        
+              <!-- External ID Column -->
+              <ng-container matColumnDef="Price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Price</h3> </th>
+                <td mat-cell *matCellDef="let row"> {{row.invodUnitPrice}} </td>
+              </ng-container>
+      
+      
+              <ng-container matColumnDef="Amount">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Amount</h3> </th>
+                <td mat-cell *matCellDef="let row"> {{row.invodAmount}} </td>
+              </ng-container>
+      
+              <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Actions</h3> </th>
+                <td mat-cell *matCellDef="let row"> <mat-icon (click)="deleteitem(row)">delete</mat-icon> </td>
+              </ng-container>
+        
+        
+              <tr mat-header-row *matHeaderRowDef="displaycolumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displaycolumns;" class="select-row">
+              </tr>
+            </table>
+        
+            <mat-paginator  [pageSize]="20" [pageSizeOptions]="[20, 40, 60, 80, 100]"
+              showFirstLastButtons></mat-paginator>
+              <br>
+              <br>
+            <button mat-raised-button type="submit" color="primary" (click)="finalize()" >Finalise</button>
+          </div>
     
+    
+    
+          
+    
+    
+          
 
 
 
-        <button mat-raised-button type="submit" color="primary" >Submit</button>
-
-        <div *ngIf="message" class="help-block">{{message}}</div>
-        <div>
           <button mat-button matStepperPrevious>Back</button>
-          <!-- <button mat-button matStepperNext>Next</button> -->
+          <button mat-button matStepperNext>Next</button>
         </div>
-      </form>
+      
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
+      <ng-template matStepLabel>Done </ng-template>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>

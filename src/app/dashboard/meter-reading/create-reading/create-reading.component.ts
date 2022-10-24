@@ -47,6 +47,8 @@ export class CreateReadingComponent implements OnInit {
 
 
   now = new Date();
+  customerdetails : any
+  units: any
 
 
   
@@ -56,7 +58,7 @@ export class CreateReadingComponent implements OnInit {
   // = [
   //   {Invoice: "1", Date: "30/04/2020", DueDate:"30/05/2020", Customer:"george karema nguhu", CreatedBy:"Mumias", Amount:"1000", InvoiceBalance:"3000"},
   // ]
-  displayedColumns : string[] = ["UserName","FirstName","LastName","Email","PhoneNumber"]
+  displayedColumns : string[] = ["Account_Number","Account_Name","Account_Balance","Mobile_Number","Curr_Mtr_Reading","Prv_Mtr_Reading","Account_Status","Scheme","Zone","Route"] // ,"National_Id","Deposit","Serial_Number"
 
   
 
@@ -64,7 +66,7 @@ export class CreateReadingComponent implements OnInit {
   constructor(private router : Router, private dialog : MatDialog, private http : HttpClient, private _formBuilder: FormBuilder, private datePipe : DatePipe ) { }
 
   ngOnInit(): void {
-    this.http.post(environment.base_url+'/user/fetchUser.action?criteria=&txtSearch=', {} ,{
+    this.http.post(environment.base_url+'/account/fetchCustomersAccounts.action?criteria=&txtSearch=&agingChkbox=&znId=&scId=&includePendingPaymentAccounts_id=true&limit=20', {} ,{
       headers : new HttpHeaders({
           'content-type': 'application/x-www-form-urlencoded'
       })
@@ -139,13 +141,17 @@ export class CreateReadingComponent implements OnInit {
 
   // }
 
-  onClick(){
+  onClick(row: any){
+    console.log(row)
+    this.firstLast = row.customerName
+    this.customerdetails = row
+    // http://188.166.29.198:8080/DEMO/account/fetchCustomersAccounts.action
     }
 
   onSearch(search : NgModel){
       console.log(search.value)
       const name = search.value
-      const url = environment.base_url+'/user/fetchUser.action?criteria=usrFirstName&txtSearch='+name
+      const url = environment.base_url+'/account/fetchCustomersAccounts.action?criteria=cAccNumber&txtSearch='+name+'&includePendingPaymentAccounts_id=true&includeClosedAccounts_id=true'
 
       console.log(url)
 
@@ -197,24 +203,9 @@ onRoute(route: any){
 onSubmit(form : NgForm){
 
   console.log(form.value)
-  const tskType = "MeterReading"
-  const readingType = "MONTHLY"
-  const tskAssignedTo = this.usrID
-  const startdate = String(this.datePipe.transform(this.now, 'dd/MM/yyyy')); // 👉️ 2/17/2022
-  const enddate = this.datePipe.transform(form.value.enddate, 'dd/MM/yyyy'); 
-  const pid = 66  // june 2022
-  const schemeid = form.value.scheme
-  const zoneid = form.value.zone
-  const routeid =  form.value.routes
-
   
-  console.log("start date is -----------",startdate)
-  console.log(enddate)
 
-  const url = environment.base_url+`/account/saveTask.action?tsk_id=&tsk_type=MeterReading&proceed_to_nxt_id=on&reading_type=
-  MONTHLY&dcnId=&disconnection_type=&tsk_pd_id=`+pid+`&customerType_id=&tskdMonths_id=&tskdBalance_id=&tskAssigned_to=`+tskAssignedTo+`&tskStart_date=
-  `+startdate+`&tskEnd_date=`+enddate+`&tsk_method_id=ROUTE&tskAccId_id=&tskScheme_id=`+schemeid+`&tskZone_id=`+zoneid+`&sup_rt_id=`+routeid+`&tskRoute_id=
-  `+routeid+`&RouteCriteria=&RouteSrchValue=&tskAssing_all_Routes=&RouteCriteria=&RouteAlocatedSrchValue=`
+  const url = environment.base_url+'/account/postMeterReading.action?'
 
   console.log('url is ----------------------------'+url)
 
@@ -235,5 +226,9 @@ onSubmit(form : NgForm){
       } )
 }
 
-
+calcunits(value : any){
+  const curr_reading = value.viewModel
+  this.units = parseInt(curr_reading) - parseInt(this.customerdetails?.balCurrentMeterReading)
+  console.log("units are --------", this.units)
+}
 }

@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import { NgForm, NgModel } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { ThisReceiver } from '@angular/compiler';
+import { ImagePreviewComponent } from '../image-preview/image-preview.component';
 
 @Component({
   selector: 'app-exceptions',
@@ -62,7 +63,7 @@ export class ExceptionsComponent implements OnInit {
   // = [
   //   {Invoice: "1", Date: "30/04/2020", DueDate:"30/05/2020", Customer:"george karema nguhu", CreatedBy:"Mumias", Amount:"1000", InvoiceBalance:"3000"},
   // ]
-  displayedColumns : string[] = ["customer","meterreader","mtrno","previousreading","currentreading","status","mtrCustAcc"]
+  displayedColumns : string[] = ["customer","meterreader","mtrno","previousreading","currentreading","status","mtrCustAcc","mtrRemarks"]
 
   
 
@@ -70,7 +71,7 @@ export class ExceptionsComponent implements OnInit {
   constructor(private router : Router, private dialog : MatDialog, private http : HttpClient, private _formBuilder: FormBuilder, private datePipe : DatePipe ) { }
 
   ngOnInit(): void {
-    this.http.post(environment.base_url+'/account/fetchMeterReadingException.action', {} ,{
+    this.http.post(environment.base_url+'/account/fetchMeterReadingException.action?criteria=&txtSearch=&zn_id=&sc_id=&rt_id=&mtrType=', {} ,{
       headers : new HttpHeaders({
           'content-type': 'application/x-www-form-urlencoded'
       })
@@ -230,26 +231,6 @@ onRoute(route: any){
 onSubmit(form : NgForm){
 
   console.log(form.value)
-  // const tskType = "MeterReading"
-  // const readingType = "MONTHLY"
-  // const tskAssignedTo = this.usrID
-  // const startdate = String(this.datePipe.transform(this.now, 'dd/MM/yyyy')); // 👉️ 2/17/2022
-  // const enddate = this.datePipe.transform(form.value.enddate, 'dd/MM/yyyy'); 
-  // const pid = 66  // june 2022
-  // const schemeid = form.value.scheme
-  // const zoneid = form.value.zone
-  // const routeid =  form.value.routes
-
-  
-  // console.log("start date is -----------",startdate)
-  // console.log(enddate)
-
-  // const url = environment.base_url+`/account/saveTask.action?tsk_id=&tsk_type=MeterReading&proceed_to_nxt_id=on&reading_type=
-  // MONTHLY&dcnId=&disconnection_type=&tsk_pd_id=`+pid+`&customerType_id=&tskdMonths_id=&tskdBalance_id=&tskAssigned_to=`+tskAssignedTo+`&tskStart_date=
-  // `+startdate+`&tskEnd_date=`+enddate+`&tsk_method_id=ROUTE&tskAccId_id=&tskScheme_id=`+schemeid+`&tskZone_id=`+zoneid+`&sup_rt_id=`+routeid+`&tskRoute_id=
-  // `+routeid+`&RouteCriteria=&RouteSrchValue=&tskAssing_all_Routes=&RouteCriteria=&RouteAlocatedSrchValue=`
-
-  // console.log('url is ----------------------------'+url)
 
   this.http.post(environment.base_url+'/account/final_approvalMeterException.action?mtrId_id='+this.exception_details.mtrId+'&mRemarks_2='+form.value.mtrRemarks+'&mtrUnitsId_id='+form.value.mtrUnits+'&accNumber_id='+form.value.accNumber+'&mtrCurrentReading_id='+form.value.mtrCurrentReading+'&mtrType_id='+form.value.billingtype+'&mtrReadingType_id='+form.value.mtrReadingType+'&accStatusCode='+this.exception_details.cAccountStatus+'&estimatedUnits='+form.value.cEstimatedBal+'&queue_to_Inspection_id=false', {} ,{
     headers : new HttpHeaders({
@@ -260,9 +241,11 @@ onSubmit(form : NgForm){
           console.log(resData.data.result)
           if (resData.messages.message == "RECORD UPDATED SUCCESSFULLY"){
             this.message = "Exception successfully Approved"
+            alert(this.message)
           }
           else {
             this.message = "unable to approve Exception"
+            alert(this.message)
           }
           
       } )
@@ -271,7 +254,7 @@ onSubmit(form : NgForm){
 onSearch(search : NgModel){
   console.log(search.value)
   const name = search.value
-  const url = environment.base_url+'/account/fetchMeterReadingException.action?criteria=customerName&txtSearch='+name+'&zn_id=&sc_id=&rt_id=&mtrType='
+  const url = environment.base_url+'/account/fetchMeterReadingException.action?criteria=cAccNumber&txtSearch='+name+'&zn_id=&sc_id=&rt_id=&mtrType='
 
   console.log(url)
 
@@ -288,6 +271,14 @@ onSearch(search : NgModel){
           // this.dataSource.sort = this.sort;
       } )
 search.reset()
+}
+
+openModal(imageSrc: any) {
+  const bsModalRef = this.dialog.open(ImagePreviewComponent, {
+    data : {imageSrc : imageSrc},
+    height: '400px',
+    width: '400px',
+  })
 }
 
 

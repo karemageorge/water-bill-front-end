@@ -23,7 +23,7 @@
             
             <div class="search-box">
               <mat-form-field color="primary">
-                <input matInput placeholder="Search by Customer Name:" name="search" ngModel #search="ngModel">
+                <input matInput placeholder="Search by Account Number:" name="search" ngModel #search="ngModel">
               </mat-form-field>
               <button mat-raised-button color="primary" (click)="onSearch(search)">
                   Search
@@ -82,7 +82,12 @@
                 <td mat-cell *matCellDef="let row"> {{row.mtrStatus}} </td>
               </ng-container>
         
-        
+              
+              <ng-container matColumnDef="mtrRemarks">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Comments</h3> </th>
+                <td mat-cell *matCellDef="let row"> {{row.mtrRemarks}} </td>
+              </ng-container>
+
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="logData(row)" class="select-row">
               </tr>
@@ -108,6 +113,9 @@
         </form>
     </mat-step>
     <mat-step [stepControl]="form2.control" label="Edit Chosen Invoice">
+
+
+      <img src="http://188.166.29.198:8080{{exception_details?.mtrImageUrl.slice(1)}}"  style="height: 150px;width: 150px;" (click)="openModal(exception_details?.mtrImageUrl.slice(1))" />
 
         
 
@@ -187,7 +195,7 @@
         </div>
         <div class="col-md-4">
             <label class="control-label" for="zone" >Exception Type</label>
-            <input type="text" class="form-control" value="">
+            <input type="text" class="form-control" name="mtrExceptionType" [ngModel]="exception_details?.mtrExceptionType" #mtrExceptionType="ngModel" readonly>
         <div class="help-block"></div>        
         </div>
         <div class="col-md-4">
@@ -221,13 +229,13 @@
           <div class="col-md-4">
             <div class="form-group">
                 <label class="control-label" for="scheme">Account Status</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="mtrAccountStatus" [ngModel]="exception_details?.mtrAccountStatus" #mtrAccountStatus="ngModel" readonly>
             <div class="help-block"></div>
             </div>        
         </div>
         <div class="col-md-4">
             <label class="control-label" for="zone" >Disconnection type</label>
-            <input type="text" class="form-control" value="">
+            <input type="text" class="form-control" [ngModel]="exception_details?.cDiscoType" name="disconnectiontype" #disconnectiontype="ngModel" readonly>
         <div class="help-block"></div>        
         </div>
         <div class="col-md-4">
@@ -241,7 +249,7 @@
           <div class="col-md-6">
             <div class="form-group">
                 <label class="control-label" for="scheme">Exception Reason</label>
-                <input type="text" class="form-control" ngModel #ExceptionReason name="ExceptionReason">
+                <input type="text" class="form-control" [ngModel]="exception_details?.mtrExcepReason" #ExceptionReason name="ExceptionReason"  readonly>
             <div class="help-block"></div>
             </div>        
         </div>
@@ -251,37 +259,6 @@
         <div class="help-block"></div>        
         </div> -->
         </div>
-
-
-        <!-- <div class="row">
-            <div class="col-md-6">
-                <div class="form-group" >
-
-                    <label class="control-label" for="scheme">Choose Routes</label>
-                    <select class="form-control show-tick selectpicker" multiple ngModel name="routes"  (change)="onRoute(route.viewModel)"  #route="ngModel" [readonly]="!routedisable">
-                        <option  style="color: black;" *ngFor="let route of routes" [value]="route.rtId">{{route.rtName}}</option>
-                    </select>
-
-                    <label class="control-label" for="scheme">Routes Selected: {{routesSelected}}</label> -->
-                    <!-- <ul class="list-group">
-                        <li class="list-group-item" *ngFor="let route of routes">
-                          <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                          {{route}}
-                        </li>
-                      </ul> -->
-
-                
-                <!-- </div>        
-            </div> -->
-            <!-- <div class="col-md-6">
-                <select class="form-control show-tick" ngModel name="person">
-                    <option value="">-- Choose Zone --</option>
-                    <option value="pastor">Pastor</option>
-                    <option value="church">Church</option>
-                </select>
-            <div class="help-block"></div>        
-            </div> -->
-        <!-- </div>  -->
     
 
 

@@ -56,7 +56,7 @@ export class CreateBillComponent implements OnInit {
   // = [
   //   {Invoice: "1", Date: "30/04/2020", DueDate:"30/05/2020", Customer:"george karema nguhu", CreatedBy:"Mumias", Amount:"1000", InvoiceBalance:"3000"},
   // ]
-  displayedColumns : string[] = ["Zone","Account_Number","Old_Acc","Account_Name","Account_Balance","Mobile_Number","Scheme","Zone","Route","Account_Status","National_Id","Deposit","Serial_Number"]
+  displayedColumns : string[] = ["Account_Number","Account_Name","Account_Balance","Mobile_Number","Curr_Mtr_Reading","Prv_Mtr_Reading","Account_Status","Scheme","Zone","Route"] // ,"National_Id","Deposit","Serial_Number"
 
   
 
@@ -100,8 +100,8 @@ export class CreateBillComponent implements OnInit {
   
 
   onClick(row : any){
-    console.log(row.customerId)
-    this.customerId = row.customerId
+    console.log(row.accountId)
+    this.customerId = row.accountId
     this.customername = row.customerName
 
     this.next = true
@@ -111,7 +111,7 @@ export class CreateBillComponent implements OnInit {
   onSearch(search : NgModel){
       console.log(search.value)
       const name = search.value
-      const url = environment.base_url+'/user/fetchUser.action?criteria=usrFirstName&txtSearch='+name
+      const url = environment.base_url+'/account/fetchCustomersAccounts.action?criteria=cAccNumber&txtSearch='+name+'&includePendingPaymentAccounts_id=true&includeClosedAccounts_id=true'
 
       console.log(url)
 
@@ -150,7 +150,11 @@ onSubmit(form : NgForm){
     })
 } ).subscribe(
       (resData: any) => {
+
         this.message = resData.messages.message
+        alert(this.message)
+
+        form.reset()
           
       } )
 }

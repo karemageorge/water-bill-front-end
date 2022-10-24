@@ -2,7 +2,7 @@
     <div class="container-fluid">
     <div class="row mb-2">
     <div class="col-sm-6">
-    <h1>Reports Form</h1>
+    <h1>{{name}}</h1>
     </div>
     <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
@@ -46,6 +46,23 @@
             </div>        
         </div>
     </div>
+
+    <div *ngIf="scheme" class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name">SCHEME</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <select  class="form-control show-tick" ngModel name="scheme"  #scheme="ngModel" required>
+                    <option *ngFor="let region of schemes" [value]="region.v_key_id">{{region.desc}}</option>
+                </select>
+                <div *ngIf="scheme.touched && !scheme.valid" class="help-block">Please select scheme</div>
+            </div>        
+        </div>
+    </div>
+
     <div *ngIf="zone" class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -94,6 +111,21 @@
             </mat-form-field>       
         </div>
     </div>
+    <div *ngIf="datefrom" class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name">Date From</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field align="right">
+                <input matInput [matDatepicker]="datefrom" ngModel name="datefrom" required>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="datefrom"></mat-datepicker-toggle>
+                <mat-datepicker #datefrom></mat-datepicker>
+            </mat-form-field>       
+        </div>
+    </div>
     <div *ngIf="enddate" class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -106,6 +138,21 @@
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="enddate"></mat-datepicker-toggle>
                 <mat-datepicker #enddate></mat-datepicker>
+            </mat-form-field>         
+        </div>
+    </div>
+    <div *ngIf="dateto" class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name">Date To</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field align="right">
+                <input matInput [matDatepicker]="dateto" ngModel name="dateto" required>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="dateto"></mat-datepicker-toggle>
+                <mat-datepicker #dateto></mat-datepicker>
             </mat-form-field>         
         </div>
     </div>

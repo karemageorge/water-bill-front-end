@@ -38,7 +38,7 @@
     <div class="col-md-4">
         <div class="form-group">
             <label class="control-label" for="phonenumber">Phone Number</label>
-            <input type="text" class="form-control" name="phonenumber" ngModel #phonenumber="ngModel" required>
+            <input type="text" placeholder="254700000000" class="form-control" name="phonenumber" ngModel #phonenumber="ngModel" required>
         <div class="help-block" *ngIf="phonenumber.touched && !phonenumber.valid"><p>please enter phone number</p></div>
         </div>        
     </div>

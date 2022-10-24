@@ -17,278 +17,41 @@ export class ReportsComponent implements OnInit {
   @ViewChild(MatSort) sort:MatSort;
   @ViewChild(MatPaginator) paginator:MatPaginator;
 
-  dtSource : any[] = [
-    {reportName : "Cash Collection", reportType : "Payments ", reportCategory : "Payments ", reportSubCategory:"MTR Summary", reportId: "report_1013"},
-    {reportName : "SALES_SUMMARY_BILLTYPEF_CROSSTAB_PER_ZONE", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1204"},
-    {reportName : "Customer Bill", reportType : "Payments ", reportCategory : "Payments ", reportSubCategory:"MTR Summary", reportId: "report_1008"},
-    {reportName : "Sales Summary", reportType : "Payments ", reportCategory : "Payments ", reportSubCategory:"MTR Summary", reportId: "report_1007"},
-    {reportName : "collection_report", reportType : "Payments ", reportCategory : "Payments ", reportSubCategory:"MTR Summary", reportId: "report_59"},
-    {reportName : "Account  Analysis by Status", reportType : "Account Summary", reportCategory : "Account Summary", reportSubCategory:"MTR Summary", reportId: "report_1005"},
-    {reportName : "COLLECTION_LISTING_PER_DAY_PER_ZONE", reportType : "Collection Listing", reportCategory : "Collection Listing", reportSubCategory:"MTR Summary", reportId: "report_1206"},
-    {reportName : "COLLECTION_REVENUE_AND_DEPOSIT_REPORT", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1207"},
-    {reportName : "METER READINGS REPORT", reportType : "Billing General", reportCategory : "Billing General", reportSubCategory:"MTR Summary", reportId: "report_1002"},
-    {reportName : "NRW per zone", reportType : "Billing General", reportCategory : "Billing General", reportSubCategory:"MTR Summary", reportId: "report_1010"},
-    {reportName : "Collection-Summmary-PERBILLTYPE-CROSSTAB", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1018"},
-    {reportName : "Collection-Miscellaneous ", reportType : "Payments ", reportCategory : "Payments ", reportSubCategory:"MTR Summary", reportId: "report_1027"},
-    {reportName : "Meter Readings_per_date", reportType : "Mtr Listing", reportCategory : "Mtr Listing", reportSubCategory:"MTR Summary", reportId: "report_1012"},
-    {reportName : "COLLECTION-PERDAY-PERMODE", reportType : "Payments ", reportCategory : "Payments ", reportSubCategory:"MTR Summary", reportId: "report_1032"},
-    {reportName : "PAYMENT_EXCEPTIONS", reportType : "Payments ", reportCategory : "Payments ", reportSubCategory:"MTR Summary", reportId: "report_1033"},
-    {reportName : "Ticket By Status & Category", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1042"},
-    {reportName : "COLLECTION-PERDAY-PERMODE_DTLS", reportType : "Collection Listing", reportCategory : "Collection Listing", reportSubCategory:"MTR Summary", reportId: "report_1035"},
-    {reportName : "NEW METER INSPECTION  CSV", reportType : "Meter management ", reportCategory : "Meter management ", reportSubCategory:"MTR Summary", reportId: "report_1208"},
-    {reportName : "METER READING INSPECTION", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1148"},
-    {reportName : "Negative Account Balances", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1147"},
-    {reportName : "ACCOUNTS WITHOUT CORDINATES", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1144"},
-    {reportName : "NEW CONNECTION INVOICE PAYMENT", reportType : "Payments ", reportCategory : "Payments ", reportSubCategory:"MTR Summary", reportId: "report_36"},
-    {reportName : "TICKET SUMMARY BY SCHEME & CATEGORY & STATUS", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1117"},
-    {reportName : "ACCOUNTS WITH CORDINATES", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1143"},
-    {reportName : "ACCOUNTS BILLING SUMMARY PER ZONE", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1133"},
-    {reportName : "BULK CHEQUE DETAILS", reportType : "Payments ", reportCategory : "Payments ", reportSubCategory:"MTR Summary", reportId: "report_1130"},
-    {reportName : "METER_INVENTORY_UNALLOCATED", reportType : "Meter management ", reportCategory : "Meter management ", reportSubCategory:"MTR Summary", reportId: "report_1131"},
-    {reportName : "Resolved Payments", reportType : "Payments ", reportCategory : "Payments ", reportSubCategory:"MTR Summary", reportId: "report_1137"},
-    {reportName : "CUSTOMER DEPOSITS PER DAY", reportType : "Payments ", reportCategory : "Payments ", reportSubCategory:"MTR Summary", reportId: "report_1142"},
-    {reportName : "PRINT AREA BILLS", reportType : "Collection Listing", reportCategory : "Collection Listing", reportSubCategory:"MTR Summary", reportId: "report_1110"},
-    {reportName : "METERS INVENTORY", reportType : "Meter management ", reportCategory : "Meter management ", reportSubCategory:"MTR Summary", reportId: "report_1113"},
-    {reportName : "ABNORMAL  BILLING", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1125"},
-    {reportName : "DEBTORS_SUMMARY_PER_ROUTE_PAYMENTS", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1122"},
-    {reportName : "MANUALLY RESOLVED PAYMENTS/RECEIPTS", reportType : "Collection Listing", reportCategory : "Collection Listing", reportSubCategory:"MTR Summary", reportId: "report_1107"},
-    {reportName : "COLLECTION SUMMARY CHEQUE DTLS", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1127"},
-    {reportName : "SMS LISTING REPORT", reportType : "SMS", reportCategory : "SMS", reportSubCategory:"MTR Summary", reportId: "report_1067"},
-    {reportName : "accounts_by_category", reportType : "Account Summary", reportCategory : "Account Summary", reportSubCategory:"MTR Summary", reportId: "report_1132"},
-    {reportName : "Account_Not_Billed", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1021"},
-    {reportName : "Commitment", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1025"},
-    {reportName : "Ac_bal_mn_cur_period", reportType : "Mtr Listing", reportCategory : "Mtr Listing", reportSubCategory:"MTR Summary", reportId: "report_1024"},
-    {reportName : "METER GROUND INSTALLATION", reportType : "Meter management ", reportCategory : "Meter management ", reportSubCategory:"MTR Summary", reportId: "report_1124"},
-    {reportName : "AUDIT TRAIL", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1097"},
-    {reportName : "SALES SUMMARY BILL TYPEF", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1134"},
-    {reportName : "BILLING SUMMARY PER ZONE ( BILLS ONLY)", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1154"},
-    {reportName : "LANDLORD VS CUSTOMER REPORT", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1156"},
-    {reportName : "COLLECTION PERDAY PER ZONE", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1138"},
-    {reportName : "CUSTOMER ACCOUNTS CSV", reportType : "Mtr Listing", reportCategory : "Mtr Listing", reportSubCategory:"MTR Summary", reportId: "report_1126"},
-    {reportName : "RECEIVED PAYMENT & EXCEPTION REPORT", reportType : "Collection Listing", reportCategory : "Collection Listing", reportSubCategory:"MTR Summary", reportId: "report_1109"},
-    {reportName : "REGISTERED_SEWER_ACCOUNTS_PER_ZONE", reportType : "Account Summary", reportCategory : "Account Summary", reportSubCategory:"MTR Summary", reportId: "report_1210"},
-    {reportName : "Periodic Tickets Compliance Performance Report", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1157"},
-    {reportName : "TICKET HISTORY", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1158"},
-    {reportName : "TICKET HISTORY SUBREPORT", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1159"},
-    {reportName : "Collection_summary_all_modes", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1016"},
-    {reportName : "CHANGE OF NAME REPORT", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1163"},
-    {reportName : "NEW CUSTOMER REPORT", reportType : "Account Summary", reportCategory : "Account Summary", reportSubCategory:"MTR Summary", reportId: "report_1162"},
-    {reportName : "UNMETERED ACCOUNTS", reportType : "Mtr Listing", reportCategory : "Mtr Listing", reportSubCategory:"MTR Summary", reportId: "report_1171"},
-    {reportName : "Bill Settled Via Deposit", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1036"},
-    {reportName : "METER REPLACEMENT REPORT", reportType : "Meter management ", reportCategory : "Meter management ", reportSubCategory:"MTR Summary", reportId: "report_1167"},
-    {reportName : "TESTED METERS REPORT", reportType : "Meter management ", reportCategory : "Meter management ", reportSubCategory:"MTR Summary", reportId: "report_1173"},
-    {reportName : "NOT ACCESSIBLE METERS", reportType : "Meter management ", reportCategory : "Meter management ", reportSubCategory:"MTR Summary", reportId: "report_1180"},
-    {reportName : "DAILY GLOBAL RESOLUTION RATE REGION WISE", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1181"},
-    {reportName : "AVERAGE TICKET RESOL TIME REGION WISE", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1182"},
-    {reportName : "AVERAGE TICKET RESOL_TIME ZONE WISE", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1183"},
-    {reportName : "DAILY GLOBAL RESOLUTION RATE ZONE WISE", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1184"},
-    {reportName : "Periodic Tickets Compliance Performance Per Zone", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1185"},
-    {reportName : "METER_READINGS_PERPERIOD", reportType : "Mtr Listing", reportCategory : "Mtr Listing", reportSubCategory:"MTR Summary", reportId: "report_1019"},
-    {reportName : "Collection_summary_per_mode", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1015"},
-    {reportName : "Collection summary per Date", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1017"},
-    {reportName : "All-Collection-per-Period", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1014"},
-    {reportName : "Collection per Date", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1001"},
-    {reportName : "Account Balances", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1020"},
-    {reportName : "Meter_Reading_Summary", reportType : "MTR Summary", reportCategory : "MTR Summary", reportSubCategory:"MTR Summary", reportId: "report_1030"},
-    {reportName : "COLLECTION SM PER DATE PER SCHEME", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1057"},
-    {reportName : "BILLING_PER_SCHEME_LISTING", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1062"},
-    {reportName : "COLLECTION REPORT MPESA", reportType : "Collection Listing", reportCategory : "Collection Listing", reportSubCategory:"MTR Summary", reportId: "report_1065"},
-    {reportName : "COLLECTION COUNT PER PERIOD", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1079"},
-    {reportName : "COLLECTION LISTING PER BILLTYPE SECHEME", reportType : "Collection Listing", reportCategory : "Collection Listing", reportSubCategory:"MTR Summary", reportId: "report_1080"},
-    {reportName : "Age Analysis", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1029"},
-    {reportName : "METERED AND UNMETERED ACC", reportType : "Account Summary", reportCategory : "Account Summary", reportSubCategory:"MTR Summary", reportId: "report_1069"},
-    {reportName : "BILLING EXCEPTION LISTING", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1060"},
-    {reportName : "AC-ADJUSTEMENTS-LISTING", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1026"},
-    {reportName : "COLLECTION SUM PERBILLTYPE SCHEME", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1075"},
-    {reportName : "COLLECTION  SUMMARY PER ZONE", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1140"},
-    {reportName : "COLLECTION PER BILLTYPE DETAILS", reportType : "Collection Listing", reportCategory : "Collection Listing", reportSubCategory:"MTR Summary", reportId: "report_1164"},
-    {reportName : "BILLING EXCEPTION SUMMARY", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1087"},
-    {reportName : "EXCEPTION DECISIONS", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1108"},
-    {reportName : "METER READING EXCEPTION COUNT", reportType : "MTR Summary", reportCategory : "MTR Summary", reportSubCategory:"MTR Summary", reportId: "report_1120"},
-    {reportName : "ACCOUNTS BILLED METER RENT", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1175"},
-    {reportName : "COLLECTION-PERDAY-PER-ZONE-PER-USER-PER-MODE", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1186"},
-    {reportName : "CUSTOMER ACCOUNTS CSV", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1091"},
-    {reportName : "meter_reading_all_summary per status", reportType : "Mtr Listing", reportCategory : "Mtr Listing", reportSubCategory:"MTR Summary", reportId: "report_1119"},
-    {reportName : "CUSTOMER DEPOSITS PER DAY", reportType : "Collection Listing", reportCategory : "Collection Listing", reportSubCategory:"MTR Summary", reportId: "report_1187"},
-    {reportName : "REVENUE_BANKING_PER_DATE", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1195"},
-    {reportName : "BILLING_SUMMARY_PER_ZONE_CATEGORY", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1196"},
-    {reportName : "METER_STATUS_SUMMARY_PER_ZONE_REPORT", reportType : "Meter management ", reportCategory : "Meter management ", reportSubCategory:"MTR Summary", reportId: "report_1198"},
-    {reportName : "Accounts without phonenumber", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1200"},
-    {reportName : "nsv_report_csv", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1211"},
-    {reportName : "INVALID_METER_NUMBER", reportType : "Meter management ", reportCategory : "Meter management ", reportSubCategory:"MTR Summary", reportId: "report_1212"},
-    {reportName : "JAR_TESTS", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1222"},
-    {reportName : "TREATMENT_CONTROL", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1223"},
-    {reportName : "SEWER_LAB_RESULTS", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1224"},
-    {reportName : "Process_statistics", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1225"},
-    {reportName : "ELECTRO_INVENTORY", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1227"},
-    {reportName : "DEBTORS LISTING PER ACCOUNT", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1149"},
-    {reportName : "MASTER_METER_READING_SUMMARY", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1226"},
-    {reportName : "Mtr_Reading_Task_per_user", reportType : "Mtr Listing", reportCategory : "Mtr Listing", reportSubCategory:"MTR Summary", reportId: "report_1063"},
-    {reportName : "meter_reading_all_summary_per_status_per_date", reportType : "MTR Summary", reportCategory : "MTR Summary", reportSubCategory:"MTR Summary", reportId: "report_1232"},
-    {reportName : "NRW SCHEME SUMMARY REPORT", reportType : "N R W Summary", reportCategory : "N R W Summary", reportSubCategory:"MTR Summary", reportId: "report_1096"},
-    {reportName : "Nrw Consumption by zone", reportType : "N R W Summary", reportCategory : "N R W Summary", reportSubCategory:"MTR Summary", reportId: "report_1041"},
-    {reportName : "CANCELLED INVOICES", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1102"},
-    {reportName : "SMS_SUMMARY_STATUS_MONTHLY", reportType : "SMS", reportCategory : "SMS", reportSubCategory:"MTR Summary", reportId: "report_1311"},
-    {reportName : "SALES_SUMMARY_BILLTYPE_DTLS", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1031"},
-    {reportName : "MONTHLY SINKING SUMMARY", reportType : "MTR Summary", reportCategory : "MTR Summary", reportSubCategory:"MTR Summary", reportId: "report_1160"},
-    {reportName : "AGED SUMMARY ER SCHEME", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1088"},
-    {reportName : "INVALID_EMAILS_REPORT", reportType : "SMS", reportCategory : "SMS", reportSubCategory:"MTR Summary", reportId: "report_1213"},
-    {reportName : "NSV_REPORT_NEW", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1218"},
-    {reportName : "new_customer_per_period", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1242"},
-    {reportName : "NRW REPORT PER ZONE", reportType : "N R W Summary", reportCategory : "N R W Summary", reportSubCategory:"MTR Summary", reportId: "report_1243"},
-    {reportName : "METER_READING_COORDINATES", reportType : "Mtr Listing", reportCategory : "Mtr Listing", reportSubCategory:"MTR Summary", reportId: "report_1244"},
-    {reportName : "PRODUCTION PLAN", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1245"},
-    {reportName : "CONSUMPTION_DROP", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1250"},
-    {reportName : "ACCOUNTS_BILLED_ON_ESTIMATE_AND_ACTUAL", reportType : "Mtr Listing", reportCategory : "Mtr Listing", reportSubCategory:"MTR Summary", reportId: "report_1251"},
-    {reportName : "ACCOUNTS_BILLED_ON_ESTIMATE_LISTING", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1252"},
-    {reportName : "DEBTORS SUMMARY PER ZONE", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1092"},
-    {reportName : "AGE_ANALYSIS_CSV", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1248"},
-    {reportName : "AGED_SUMMARY_PER_ZONE", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1249"},
-    {reportName : "BILLING_SUMMARY_VOLUME_PER_SCHEME_ZONE", reportType : "Warris", reportCategory : "Warris", reportSubCategory:"MTR Summary", reportId: "report_1193"},
-    {reportName : "BILLING_SUMMARY_PER_READING_TYPE_AMOUNT", reportType : "Warris", reportCategory : "Warris", reportSubCategory:"MTR Summary", reportId: "report_1192"},
-    {reportName : "METER READING TASK PER USER OLD", reportType : "MTR Summary", reportCategory : "MTR Summary", reportSubCategory:"MTR Summary", reportId: "report_1093"},
-    {reportName : "DAILY SYNCING SUMMARY REPORT", reportType : "MTR Summary", reportCategory : "MTR Summary", reportSubCategory:"MTR Summary", reportId: "report_1161"},
-    {reportName : "COMPLAIN_RESOLUTION_COMPLIANCE", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1258"},
-    {reportName : "DAILY_GLOBAL_RESOLUTION_RATE_REGION_WISE", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1260"},
-    {reportName : "Meter_Reading_Task_per_user_csv", reportType : "Mtr Listing", reportCategory : "Mtr Listing", reportSubCategory:"MTR Summary", reportId: "report_1261"},
-    {reportName : "TURNAROUND_TIME_EFFICIENCIES_FOR_LEAK_BURST_REPAIRS", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1266"},
-    {reportName : "ANALYSIS_OF_LEAKS_BURSTS_PER_PIPE_SIZE", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1267"},
-    {reportName : "ANALYSIS_OF_LEAKS_BURSTS_PER_PIPE_MATERIAL", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1268"},
-    {reportName : "TICKETS_STATUS_FOR_NO_WATER_LOW_PRESSURE_PER_ZONE", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1269"},
-    {reportName : "ANALYSIS_OF_CAUSES_OF_SUPPLY_FAILURES", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1270"},
-    {reportName : "RAW_BURSTS_TICKETS_DETAILS_BY_DATE_CSV", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1271"},
-    {reportName : "LOW_PRESSURE_NO_WATER_TICKETS_DETAILS_BY_DATE", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1272"},
-    {reportName : "TICKETS_STATUS_FOR_LEAK_BURSTS_PER_ZONE", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1273"},
-    {reportName : "Tasks Reported By Staff", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1275"},
-    {reportName : "CANCELLED_RECEIPTS", reportType : "Collection Listing", reportCategory : "Collection Listing", reportSubCategory:"MTR Summary", reportId: "report_1265"},
-    {reportName : "COLLECTION_PER_DAY_PER_BILLTYPE", reportType : "Payments ", reportCategory : "Payments ", reportSubCategory:"MTR Summary", reportId: "report_1291"},
-    {reportName : "BILLING SUMMARY BANDS PER CATEGORY", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1292"},
-    {reportName : "meter_ground_installition_CSV", reportType : "Meter management ", reportCategory : "Meter management ", reportSubCategory:"MTR Summary", reportId: "report_1294"},
-    {reportName : "POSTED_RECEIPTS", reportType : "Collection Listing", reportCategory : "Collection Listing", reportSubCategory:"MTR Summary", reportId: "report_1295"},
-    {reportName : "SEWER_FLOW_RATE", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1299"},
-    {reportName : "ALL_POSTED_RECEIPTS", reportType : "Collection Listing", reportCategory : "Collection Listing", reportSubCategory:"MTR Summary", reportId: "report_1300"},
-    {reportName : "TREATMENT_CONTROL_COUNT", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1301"},
-    {reportName : "TREATMENT_CONTROLL_MONTHLY", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1302"},
-    {reportName : "EMAILS_SENT_SUCCESSFULLY", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1303"},
-    {reportName : "DAILY_CHEMICAL_USAGE", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1304"},
-    {reportName : "SHEQ_TEST_AND_COMPLIANCE", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1307"},
-    {reportName : "BILLING_SUMMARY_PER_BILLING_CUBIC_PER_ZONE_COUNT", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1254"},
-    {reportName : "METERS ISSUED", reportType : "Meter management ", reportCategory : "Meter management ", reportSubCategory:"MTR Summary", reportId: "report_1278"},
-    {reportName : "CUSTOMER_DEPOSITS_REFUND_REPORT", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1263"},
-    {reportName : "ACCOUNT_ANALYSIS_BY_STATUS_PER_ZONE", reportType : "Account Summary", reportCategory : "Account Summary", reportSubCategory:"MTR Summary", reportId: "report_1190"},
-    {reportName : "BILL SMS NOT DISPATCHED LISTING", reportType : "SMS", reportCategory : "SMS", reportSubCategory:"MTR Summary", reportId: "report_1098"},
-    {reportName : "ACCOUNTS_TO_BE_READ", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1315"},
-    {reportName : "RECONN VS DISCON ACC SUMMARY", reportType : "Discon Vs Reconn", reportCategory : "Discon Vs Reconn", reportSubCategory:"MTR Summary", reportId: "report_1084"},
-    {reportName : "RECONN VS DISCON ACC LISTING", reportType : "Discon Vs Reconn", reportCategory : "Discon Vs Reconn", reportSubCategory:"MTR Summary", reportId: "report_1083"},
-    {reportName : "PENDING_RECONNECTIONS_ASSIGNED", reportType : "Discon Vs Reconn", reportCategory : "Discon Vs Reconn", reportSubCategory:"MTR Summary", reportId: "report_1293"},
-    {reportName : "DISCONNECTION REPORT", reportType : "Discon Vs Reconn", reportCategory : "Discon Vs Reconn", reportSubCategory:"MTR Summary", reportId: "report_1111"},
-    {reportName : "DISCONNECTED_ACCOUNTS_WITH_READINGS", reportType : "Discon Vs Reconn", reportCategory : "Discon Vs Reconn", reportSubCategory:"MTR Summary", reportId: "report_1276"},
-    {reportName : "DISCONNECTED_ACCOUNTS_PAST_THREE_MONTHS", reportType : "Discon Vs Reconn", reportCategory : "Discon Vs Reconn", reportSubCategory:"MTR Summary", reportId: "report_1280"},
-    {reportName : "PROCESS CONTROLL RESULTS", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1312"},
-    {reportName : "SURVEILANCE_DATA", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1313"},
-    {reportName : "VERIFICATION_REPORT_CSV", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1256"},
-    {reportName : "REVERSED PAYMENT EXCEPTIONS", reportType : "Collection Listing", reportCategory : "Collection Listing", reportSubCategory:"MTR Summary", reportId: "report_1314"},
-    {reportName : "Consumption by Zone", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1006"},
-    {reportName : "BILLED_CONSUMPTION_PER_ACCOUNT", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1316"},
-    {reportName : "DEBTORS REPORT", reportType : "Collection Listing", reportCategory : "Collection Listing", reportSubCategory:"MTR Summary", reportId: "report_1317"},
-    {reportName : "COMMITMENT_DEFAULTERS", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1319"},
-    {reportName : "debt assigned listing", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1320"},
-    {reportName : "SURVEILANCE_DATA_SUMMARY", reportType : "Technical", reportCategory : "Technical", reportSubCategory:"MTR Summary", reportId: "report_1321"},
-    {reportName : "BILLING_SUMMARY_PER_ZONE_PAYMENTS", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1264"},
-    {reportName : "Account_Not_Billed_CSV", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1326"},
-    {reportName : "SALES_SUMMARY_BILLTYPEF_CROSSTAB_PER_ZONE", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1327"},
-    {reportName : "SEWER_LISTING_REPORT", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1328"},
-    {reportName : "SMS_SUMMARY_SCHEME", reportType : "SMS", reportCategory : "SMS", reportSubCategory:"MTR Summary", reportId: "report_1331"},
-    {reportName : "USER_ROLES_REPORT", reportType : "Warris", reportCategory : "Warris", reportSubCategory:"MTR Summary", reportId: "report_1332"},
-    {reportName : "BILLING_LISTING_REPORT", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1333"},
-    {reportName : "collection_summary_per_scheme_per_date_crosstab", reportType : "Collection Summary", reportCategory : "Collection Summary", reportSubCategory:"MTR Summary", reportId: "report_1334"},
-    {reportName : "Overall task report per individual zonewise", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1336"},
-    {reportName : "ACCOUNTS BILLING SUMMARY PER SCHEME", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1335"},
-    {reportName : "ADJUSTMENT REPORT", reportType : "Payments ", reportCategory : "Payments ", reportSubCategory:"MTR Summary", reportId: "report_1337"},
-    {reportName : "ACCOUNTS BILLED MANUALLY", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1325"},
-    {reportName : "BILLING_SUMMARY_PER_SCHEME_PAYMENTS_PER_CUSTOMER", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1123"},
-    {reportName : "USER_ACTIVITY_AUDIT", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1338"},
-    {reportName : "ADJUSTEMENTS_ALL_LISTING", reportType : "Adjustments", reportCategory : "Adjustments", reportSubCategory:"MTR Summary", reportId: "report_1339"},
-    {reportName : "DMA_CONSUMPTION", reportType : "N R W Summary", reportCategory : "N R W Summary", reportSubCategory:"MTR Summary", reportId: "report_1340"},
-    {reportName : "BILLING_EXCEPTION_SUMMARY_BY_ZONE", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1342"},
-    {reportName : "Account_Balances_Arrears_List_CSV", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1343"},
-    {reportName : "leakages_and_bursts_reported", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1344"},
-    {reportName : "LEAKAGE_CAUSE_SUMMARY", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1345"},
-    {reportName : "DISTRIBUTION_REPORT", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1346"},
-    {reportName : "CUSTOMER_CONSUMPTION_LISTING", reportType : "N R W Listing", reportCategory : "N R W Listing", reportSubCategory:"MTR Summary", reportId: "report_1348"},
-    {reportName : "LANDLORD_LISTING_REPORT", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1349"},
-    {reportName : "METER_REPLACEMENT_REPORT_CSV", reportType : "Meter management ", reportCategory : "Meter management ", reportSubCategory:"MTR Summary", reportId: "report_1350"},
-    {reportName : "TICKET CREATION PER USER", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1351"},
-    {reportName : "Meter_Reading_Task_progres", reportType : "MTR Summary", reportCategory : "MTR Summary", reportSubCategory:"MTR Summary", reportId: "report_1352"},
-    {reportName : "BILLING_SUMMARY_PER_ZONE_WITH_METER_RENT", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1353"},
-    {reportName : "meter_reading_sheet_csv", reportType : "Mtr Listing", reportCategory : "Mtr Listing", reportSubCategory:"MTR Summary", reportId: "report_1354"},
-    {reportName : "BILLING_SUMMARY_PER_SCHEME_PER_ROUTE", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1355"},
-    {reportName : "PERFORMANCE_REPORT_LISTING", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1356"},
-    {reportName : "PERFORMANCE_REPORT_SUMMARY", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1357"},
-    {reportName : "METEREDACCOUNTS_PER_ZONE", reportType : "Account Summary", reportCategory : "Account Summary", reportSubCategory:"MTR Summary", reportId: "report_1358"},
-    {reportName : "USER_ACTIVITY_AUDIT", reportType : "USERS", reportCategory : "USERS", reportSubCategory:"MTR Summary", reportId: "report_1359"},
-    {reportName : "TOTAL_REGISTERED_ACCOUNTS", reportType : "Account Summary", reportCategory : "Account Summary", reportSubCategory:"MTR Summary", reportId: "report_1360"},
-    {reportName : "SUMMARY_ACC_STATUS_REPORT", reportType : "Account Summary", reportCategory : "Account Summary", reportSubCategory:"MTR Summary", reportId: "report_1361"},
-    {reportName : "accounts_by_category_listing", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1362"},
-    {reportName : "TERMINATED_BILLED_ACCOUNTS", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1363"},
-    {reportName : "CUSTOMER_DEPOSITS", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1364"},
-    {reportName : "METER_READING_EFFICIENCY_REPORT", reportType : "MTR Summary", reportCategory : "MTR Summary", reportSubCategory:"MTR Summary", reportId: "report_1366"},
-    {reportName : "TOTAL_REGISTERED_ACCOUNTS_METERED_UNMETERED", reportType : "Account Summary", reportCategory : "Account Summary", reportSubCategory:"MTR Summary", reportId: "report_1367"},
-    {reportName : "RECONNECTION_GUIDLINE_LISTING", reportType : "Discon Vs Reconn", reportCategory : "Discon Vs Reconn", reportSubCategory:"MTR Summary", reportId: "report_1341"},
-    {reportName : "BILLED_AMOUNT_PER_ACCOUNT", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1369"},
-    {reportName : "BILLING VERIFICATION SUMMARY", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1324"},
-    {reportName : "COMMITMENT_LISTING_REPORT", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1370"},
-    {reportName : "ACTIVE_COMMITMENTS", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1371"},
-    {reportName : "COMMITMENTS_SUMMARY_REPORT", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1372"},
-    {reportName : "BILLING_SUMMARY_PER_BILLING_CUBIC", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1374"},
-    {reportName : "METERED AND UNMETERED ACC LISTING", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1085"},
-    {reportName : "STALLED_ACCOUNTS_LISTING", reportType : "Account Listing", reportCategory : "Account Listing", reportSubCategory:"MTR Summary", reportId: "report_1375"},
-    {reportName : "STALLED_ACCOUNTS_PAST_SIX_MONTHS", reportType : "Account Summary", reportCategory : "Account Summary", reportSubCategory:"MTR Summary", reportId: "report_1377"},
-    {reportName : "ACCOUNT_ANALYSIS_PER_CATEGORY", reportType : "Warris", reportCategory : "Warris", reportSubCategory:"MTR Summary", reportId: "report_1380"},
-    {reportName : "AMOUNT_BY_ZONE_CATEGORY_PER_METER_STATUS", reportType : "Warris", reportCategory : "Warris", reportSubCategory:"MTR Summary", reportId: "report_1379"},
-    {reportName : "CONSUMPTION_BY_SCHEME_CATEGORY", reportType : "Warris", reportCategory : "Warris", reportSubCategory:"MTR Summary", reportId: "report_1373"},
-    {reportName : "COLLECTION_PER_CATEGORY_BILLTYPE", reportType : "Warris", reportCategory : "Warris", reportSubCategory:"MTR Summary", reportId: "report_1378"},
-    {reportName : "TOTAL_BILLING_COUNT_VOLUME_AND_AMOUNT", reportType : "Warris", reportCategory : "Warris", reportSubCategory:"MTR Summary", reportId: "report_1240"},
-    {reportName : "ACCOUNT_STATEMENT_BILL_MAJI", reportType : "Accounts", reportCategory : "Accounts", reportSubCategory:"MTR Summary", reportId: "report_1381"},
-    {reportName : "COLLECTION-LISTING-NEW_CUSTOMER", reportType : "Warris", reportCategory : "Warris", reportSubCategory:"MTR Summary", reportId: "report_1382"},
-    {reportName : "TICKET_RESOLVED_BEYOND_TAT_LISTING", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1383"},
-    {reportName : "TICKET_RESOLVED_WITHIN_TAT_LISTING", reportType : "CRM", reportCategory : "CRM", reportSubCategory:"MTR Summary", reportId: "report_1384"},
-    {reportName : "TERMINATED_BILLED_ACCOUNTS", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1385"},
-    {reportName : "DEBT_COLLECTION", reportType : "DEBTORS", reportCategory : "DEBTORS", reportSubCategory:"MTR Summary", reportId: "report_1386"},
-    {reportName : "BILLING_BY_ZONE_PER_YEAR_PER_TARIF", reportType : "Warris", reportCategory : "Warris", reportSubCategory:"MTR Summary", reportId: "report_1387"},
-    {reportName : "COLLECTION_SUMMARY_BILLS_PER_ZONE_YEARLY", reportType : "Warris", reportCategory : "Warris", reportSubCategory:"MTR Summary", reportId: "report_1388"},
-    {reportName : "meterreading_disc_listing_task_report", reportType : "Mtr Listing", reportCategory : "Mtr Listing", reportSubCategory:"MTR Summary", reportId: "report_1389"},
-    {reportName : "CUSTOMER_WATER_BILL_PER_AREA", reportType : "Billing Listing", reportCategory : "Billing Listing", reportSubCategory:"MTR Summary", reportId: "report_1390"},
-    {reportName : "NEW_TOTAL_REGISTERED_ACCOUNTS_PER_PERIOD", reportType : "Account Summary", reportCategory : "Account Summary", reportSubCategory:"MTR Summary", reportId: "report_1391"},
-    {reportName : "METERING_LEVELS", reportType : "Account Summary", reportCategory : "Account Summary", reportSubCategory:"MTR Summary", reportId: "report_1392"},
-    {reportName : "ACCOUNT_ANALYSIS_PER_CATEGORY_PER_ZONE", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1394"},
-    {reportName : "AC-ADJUSTEMENTS_SUMMARY", reportType : "ADJUSTMENT", reportCategory : "ADJUSTMENT", reportSubCategory:"MTR Summary", reportId: "report_1393"},
-    {reportName : "STALLED_ACCOUNTS_SUMMARY", reportType : "Account Summary", reportCategory : "Account Summary", reportSubCategory:"MTR Summary", reportId: "report_1395"},
-    {reportName : "COLLECTION_PER_CATEGORY_PER_ZONE_TARGET", reportType : "TARGET", reportCategory : "TARGET", reportSubCategory:"MTR Summary", reportId: "report_1396"},
-    {reportName : "BILLING_BY_ZONE_PER_YEAR_TARGETS", reportType : "TARGET", reportCategory : "TARGET", reportSubCategory:"MTR Summary", reportId: "report_1397"},
-    {reportName : "METER_READING_DISTANCE_CALCULATION", reportType : "TARGET", reportCategory : "TARGET", reportSubCategory:"MTR Summary", reportId: "report_1398"},
-    {reportName : "AGED_SUMMARY_PER_ZONE_TARGET", reportType : "TARGET", reportCategory : "TARGET", reportSubCategory:"MTR Summary", reportId: "report_1399"},
-    {reportName : "REVERSE_READING_REPORT", reportType : "TARGET", reportCategory : "TARGET", reportSubCategory:"MTR Summary", reportId: "report_1400"},
-    {reportName : "CUSTOMER_WATER_BILL_PER_AREA", reportType : "Billing Summary", reportCategory : "Billing Summary", reportSubCategory:"MTR Summary", reportId: "report_1401"},
-    {reportName : "SALES_SUMMARY_BILLTYPE_BY_TRANS_CSV", reportType : "TARGET", reportCategory : "TARGET", reportSubCategory:"MTR Summary", reportId: "report_1402"},
-    {reportName : "SALES_SUMMARY_BILLTYPE_BY_TRANS_CSV", reportType : "Accounts", reportCategory : "Accounts", reportSubCategory:"MTR Summary", reportId: "report_1403"}
-    
-  ]
+  dtSource : any
 
   
   displayedColumns : string[] = ["Name","Category","SubCategory"]
 
-  
-
-  dataSource = new MatTableDataSource(this.dtSource);
   constructor(private router : Router, private dialog : MatDialog, private http: HttpClient ) { }
 
   ngOnInit(): void {
-  
+
+    this.http.post(environment.base_url+'/myReports/fetchAllReports.action', {} ,{
+      headers : new HttpHeaders({
+          'content-type': 'application/x-www-form-urlencoded'
+      })
+  } ).subscribe(
+        (resData: any) => {
+          if (resData.success == false){
+            this.router.navigate(['/login.action'])
+          }
+          else {
+            console.log(resData.data.result);
+            this.dtSource = new MatTableDataSource(resData.data.result);
+            this.dtSource.paginator = this.paginator
+            this.dtSource.sort = this.sort
+          }
+        } 
+        // (error: any) => {
+        //     console.log(error)
+        //     this.error = "Unable to Login please try again"
+        //     this.isLoading = false
+        // }
+        )
   }
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator
-    this.dataSource.sort = this.sort
+    // this.dtSource.paginator = this.paginator
+    // this.dtSource.sort = this.sort
 }
 
   logData(row: any){
@@ -296,13 +59,17 @@ export class ReportsComponent implements OnInit {
   }
   applyFilter(filterValue: any){
 
-    this.dataSource.filter = filterValue.target.value.trim().toLowerCase()
+    this.dtSource.filter = filterValue.target.value.trim().toLowerCase()
 
   }
 
   onCreate() {
     this.router.navigate(['/admin/customers/createcustomer'])
 
+  }
+
+  onclick(){
+    
   }
 
 

@@ -27,7 +27,7 @@ export class TasksComponent implements OnInit {
   // = [
   //   {Invoice: "1", Date: "30/04/2020", DueDate:"30/05/2020", Customer:"george karema nguhu", CreatedBy:"Mumias", Amount:"1000", InvoiceBalance:"3000"},
   // ]
-  displayedColumns : string[] = ["TaskName","AssignedTo","AssignMethod","Scheme","StartDate","DueDate","tskStatus","tskDetails","pdName","taskTotal","taskCompleted"] // "AccountName","defaultAccNumber",
+  displayedColumns : string[] = ["Actions","TaskName","AssignedTo","AssignMethod","Scheme","StartDate","DueDate","tskStatus","tskDetails","pdName","taskTotal","taskCompleted"] // "AccountName","defaultAccNumber",
 
   
 
@@ -102,5 +102,34 @@ export class TasksComponent implements OnInit {
               this.dataSource.sort = this.sort;
           } )
     search.reset()
+    }
+
+    delete(itemid: any){
+      if(confirm("Are you sure to Expire Task? ")) {
+        console.log("id to delete is ------ ", itemid)
+      this.http.post(environment.base_url+'/payment/expireTask.action?tsk_id='+itemid, {} ,{
+        headers : new HttpHeaders({
+            'content-type': 'application/x-www-form-urlencoded'
+        })
+    } ).subscribe(
+          (resData: any) => {
+            // if (resData.success == false){
+            //   this.router.navigate(['/login.action'])
+            // }
+            // else {
+              
+              alert(resData.messages.message)
+              console.log(resData.data.result)
+            }
+          // } 
+          // (error: any) => {
+          //     console.log(error)
+          //     this.error = "Unable to Login please try again"
+          //     this.isLoading = false
+          // }
+          )
+
+
+      }
     }
   }

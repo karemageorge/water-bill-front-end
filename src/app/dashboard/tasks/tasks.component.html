@@ -48,6 +48,11 @@
       <table mat-table  class=" table-bordered table-striped" [dataSource]="dataSource" matSort>
 
         <!-- "Invoice#","Date","DueDate","Customer","CreatedBy","Amount","InvoiceBalance" -->
+        <ng-container matColumnDef="Actions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Actions</h3> </th>
+          <td mat-cell *matCellDef="let row"> <mat-icon (click)="delete(row.tskId)">delete</mat-icon> </td>
+        </ng-container>
+
         <ng-container matColumnDef="TaskName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Task Name</h3></th>
           <td mat-cell *matCellDef="let row"> {{row.tskType}} </td>

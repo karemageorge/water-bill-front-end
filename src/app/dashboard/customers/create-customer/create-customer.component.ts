@@ -81,11 +81,23 @@ export class CreateCustomerComponent implements OnInit {
         })
     } ).subscribe(
           (resData: any) => {
-              console.log(resData)
-              console.log("resdata message response is ---- ",resData.messages?.message)
+
+            console.log(resData)
+            console.log("resdata message response is ---- ",resData.messages?.message)
+
+            if (resData.messages.message == "RECORD SAVED SUCCESSFULLY"){
+
+              alert('Customer was successfully created')
+  
+              this.message = "Customer was successfully created"
+              f.reset()
+            }
+            else {
               this.message = resData.messages.message
-              console.log("this message is ", this.message)
-              this.isLoading = false
+              alert("unable to create Customer ---"+this.message)
+            }
+              
+            this.isLoading = false
           } )
     f.reset()
   }

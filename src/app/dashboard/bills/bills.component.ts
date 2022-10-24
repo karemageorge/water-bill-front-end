@@ -7,6 +7,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { NgModel } from '@angular/forms';
+import { ViewBillComponent } from './view-bill/view-bill.component';
 
 @Component({
   selector: 'app-bills',
@@ -85,5 +86,97 @@ export class BillsComponent implements OnInit {
             this.dataSource.sort = this.sort;
         } )
   search.reset()
+  }
+
+  delete(itemid: any){
+    if(confirm("Are you sure to delete Invoice? ")) {
+      console.log("Invoice to delete is ------ ", itemid.invoId)
+      this.http.post(environment.base_url+'/payment/cancelnvoice.action?invoId_id='+itemid.invoId+'&curRead_to=0&cancelReason=CANCEL', {} ,{
+        headers : new HttpHeaders({
+            'content-type': 'application/x-www-form-urlencoded'
+        })
+    } ).subscribe(
+          (resData: any) => {
+            // if (resData.success == false){
+            //   this.router.navigate(['/login.action'])
+            // }
+            // else {
+              alert(resData.messages.message)
+            }
+          // } 
+          // (error: any) => {
+          //     console.log(error)
+          //     this.error = "Unable to Login please try again"
+          //     this.isLoading = false
+          // }
+          )
+    }
+  }
+
+  view(row: any){
+    console.log("invoice item is ----", row)
+    this.Dialog.open(ViewBillComponent, {
+      // maxWidth: '100vw',
+      // maxHeight: '100vh',
+      data : {invoid : row.invoId, invocode : row.invoCode},
+      height: '400px',
+      width: '800px',
+      // panelClass: 'full-screen-modal'
+    });
+
+  }
+
+  print(row : any){
+
+    
+    this.http.post(environment.base_url+'/myReports/directReport.action?&receiptNo='+row.invoCAccId+'&P_PERIOD='+row.invoPdId+'&reportName=CUSTOMER_WATER_BILL&PDF_FORMAT=inline&P_FORMAT=PDF', {} ,{
+      // observe:'response',
+      responseType:'arraybuffer'
+      } ).subscribe(
+        (resData: any) => {
+
+          // let filename = resData.headers.get('Content-disposition')?.split(';')[1].split('=')[1]
+          // let blob1: Blob = resData.body as Blob
+          // let a = document.createElement('a')
+          // a.download = filename
+          // a.href = window.URL.createObjectURL(blob1)
+          // window.open(a.href, '_blank');
+          // a.click()
+          // alert('Print Bill ready for viewing')
+
+          // let response = this.base64ToArrayBuffer(resData);
+          // let file = new Blob([response], { type: 'application/pdf' });            
+          // var fileURL = URL.createObjectURL(file);
+          // window.open(fileURL);
+
+
+
+
+          let blob = new Blob([resData], { type: 'application/pdf' });
+          console.log("blob object is ------------",blob)
+          
+          let pdfUrl = window.URL.createObjectURL(blob);
+
+          var PDF_link = document.createElement('a');
+          PDF_link.href = pdfUrl;
+          //   TO OPEN PDF ON BROWSER IN NEW TAB
+          window.open(pdfUrl, '_blank');
+          alert('Print Bill ready for viewing. Click ok to download')
+          //   TO DOWNLOAD PDF TO YOUR COMPUTER
+          PDF_link.download = "TestFile.pdf";
+          PDF_link.click();
+          console.log(resData)
+          }
+        )
+  }
+
+  base64ToArrayBuffer(base64:any):ArrayBuffer {
+    var binary_string =  window.atob(base64);
+    var len = binary_string.length;
+    var bytes = new Uint8Array( len );
+    for (var i = 0; i < len; i++)        {
+        bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes.buffer;
   }
 }

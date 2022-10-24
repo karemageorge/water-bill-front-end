@@ -216,20 +216,24 @@ onSubmit(form : NgForm){
     })
   } ).subscribe(
       (resData: any) => {
-          console.log(resData.data.result)
+          // console.log(resData.data.result)
           if (resData.messages.message == "RECORD SAVED SUCCESSFULLY"){
+
+            alert('Task was successfully created')
 
             this.message = "Task was successfully created"
             form.reset()
           }
           else {
             this.message = "unable to create task. Please try again"
+            alert('Unable to create Task. Please try again!')
           }
           
       },
       (error)=>{
+        alert('an error occurred please try again')
         this.message = "an error occurred please try again"
+        
       } )
 }
-
 }

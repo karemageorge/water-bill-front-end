@@ -9,7 +9,7 @@ const routes: Routes = [
     component: ReportsComponent
 },
 {
-  path: 'report-form/:id',
+  path: 'report-form/:name/:id',
   component: ReportFormComponent
 }
 ];

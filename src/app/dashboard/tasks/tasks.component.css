@@ -142,3 +142,7 @@ input{
       .mat-table-sticky-border-elem-left {
         border-right: 1px solid #e0e0e0;
       }
+
+      .mat-column-Actions {
+        width: 5% !important;
+      }
