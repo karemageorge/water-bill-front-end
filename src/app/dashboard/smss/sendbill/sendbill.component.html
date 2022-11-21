@@ -25,7 +25,7 @@
         <div class="form-group">
             <label class="control-label" for="name">Period</label>
             <select  class="form-control" ngModel name="period" #period="ngModel" required>
-                <option *ngFor="let period of periods" [value]="period">{{period}}</option>
+                <option *ngFor="let period of periods" [value]="period.pdId">{{period.pdCode}}</option>
             </select> 
             <div  class="help-block" *ngIf="period.touched && !period.valid"><p>Please enter period</p></div>
         </div>        
@@ -114,7 +114,7 @@
 
 
 <div class="form-group">
-    <button type="submit" class="btn btn-success" disabled>Send</button>
+    <button type="submit" class="btn btn-success" [disabled]="!form.valid">Send</button>
 </div>
     
 </form>

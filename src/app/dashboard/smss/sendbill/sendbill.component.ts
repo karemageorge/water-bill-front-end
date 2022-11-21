@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -33,7 +34,7 @@ export class SendbillComponent implements OnInit {
   selectzone = false
   selectscheme = false
 
-  constructor( private http : HttpClient, private router : Router) { }
+  constructor( private http : HttpClient, private router : Router, private datePipe : DatePipe) { }
 
   ngOnInit(): void {
     this.http.post(environment.base_url+'/msg/fetchScheme.action?scId=&query=', {} ,{
@@ -59,8 +60,10 @@ export class SendbillComponent implements OnInit {
 
   onSubmit(form: NgForm){
     console.log(form.value)
-
-    const url = environment.base_url+'/msg/savemsgQueue.action?msgId_id=&code_id=&msgUsrId_id=&msgCreatedDate_id=&msgStatus_id=&msgDeliveredDate_id=&msgSubMobileNo_id=&msgmsg_id='
+    let duedate = String(this.datePipe.transform(form.value.duedate, 'dd/MM/yyyy'));
+    let datearrears = String(this.datePipe.transform(form.value.datearrears, 'dd/MM/yyyy'));
+   
+    const url = environment.base_url+'/biztool/newsaveBillSent.action?billId_id=&rcptPdId_id='+form.value.period+'&v_type='+form.value.channel+'&rcptDate_id='+duedate+'&rcptDueDateArrears_id='+datearrears+'&tsk_method_id='+form.value.sendtype+'&tskScheme_id='+form.value.scheme+'&tskZone_id='+form.value.zone+'&tskRoute_id='+form.value.route+'&appendMessage='+form.value.message
 
     this.http.post(url, {} ,{
       headers : new HttpHeaders({
@@ -68,11 +71,8 @@ export class SendbillComponent implements OnInit {
       })
   } ).subscribe(
         (resData: any) => {
-            console.log(resData.data.result)
-            // if (resData.success == false){
-            //   this.router.navigate(['/login.action'])
-            // }
-            // else {
+            // console.log(resData.data.result)
+            alert(resData.messages.message)
             this.message = resData.messages.message
         // }
       })

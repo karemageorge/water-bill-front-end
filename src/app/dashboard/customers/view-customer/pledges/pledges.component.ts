@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-pledges',
@@ -18,25 +19,14 @@ export class PledgesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator:MatPaginator;
 
   dtSource : any[] = [
-    {id: "1", name: "george karema nguhu", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
-    {id: "2", name: "mark", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
-    {id: "3", name: "kevin", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
-    {id: "4", name: "victor", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
-    {id: "5", name: "stephen", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
-    {id: "6", name: "george", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
-    {id: "7", name: "mark", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
-    {id: "8", name: "kevin", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
-    {id: "9", name: "victor", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
-    {id: "10", name: "stephen", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
-    {id: "11", name: "george", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
-    {id: "12", name: "mark", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
-    {id: "13", name: "kevin", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
-    {id: "14", name: "victor", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
-    {id: "15", name: "stephen", kraPin:"A002824017L", CustType:"Domestic", Scheme:"Mumias", Zone:"Twn", Route:"3"},
   ]
-  displayedColumns : string[] = ["id","name","kraPin","CustType","Scheme","Zone","Route"]
+  displayedColumns : string[] = ["BalanceAmount","Frequency","InstallmentAmount"]
 
-  
+  Frequencies : any[] = ["MONTHLY","WEEKLY","DAILY"]
+  Commitment_reasons: any[] = ["MATERIAL LOAN","BILL"]
+  EnabledStatuss : any[]= ["Yes","No"]
+  RecurrentTypes : any[]=["COMMITMENT","OTHERS"]
+  message = ""
 
   dataSource : any
   constructor(private router : Router, private http : HttpClient) { }
@@ -71,6 +61,9 @@ export class PledgesComponent implements OnInit {
 
   }
 
+  onSubmit(form2: NgForm){
+    const url = environment.base_url+'/rev/saveCommitments.action?crbId_id=&crbCode_id=&crbFrequency_id=MONTHLY&cm_type=LOAN&invoId_id=&cAccId_id=13015&invoAmount_id=&no_of_months_id=1&paymentDay=5&crb_c_acc_id=13015&crbEnabled_id=YES&crbType_id=COMMITMENT&cmWefDate_id=03%2F11%2F2022&cmWet_id=03%2F12%2F2022&cmInstallAmt_id=200&cmBalanceAmt_id=200&cmCAccId_id=13015'
+  }
 
 
 }

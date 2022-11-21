@@ -13,9 +13,22 @@
     </div>
     </div>
 </section>
+
+<div class="action-button" fxLayoutGap="25px">
+  <button mat-raised-button color="primary" routerLink="/admin/meter-readings/exceptions">
+    <!-- <fa-icon icon="download"></fa-icon>&nbsp;&nbsp;Import Client -->
+    <mat-icon>download</mat-icon>&nbsp;&nbsp;Exceptions
+  </button>  
+  <button routerLink="/admin/meter-readings/createreading"
+  mat-raised-button color="primary" >
+    <!-- <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;Create Client -->
+    <mat-icon>person_add</mat-icon>&nbsp;&nbsp;Create Reading
+  </button>
+</div>
+
 <section class="content">
     <mat-card class="container-fluid alternate-theme">
-        <div fxLayout="row" fxLayoutAlign="start center">
+        <!-- <div fxLayout="row" fxLayoutAlign="start center">
           
           <div class="search-box">
             <mat-form-field color="primary">
@@ -24,25 +37,68 @@
             <button mat-raised-button color="primary" (click)="onSearch(search)">
                 Search
               <mat-icon color="accent" matSuffix style="font-size: 1.2em">search</mat-icon>
-            </button>
+            </button> -->
             <!-- <mat-form-field color="primary">
               <input (keyup)="applyFilter($event)" matInput placeholder="Search by customer name" >
               <mat-icon color="primary" matSuffix style="font-size: 1.2em">search</mat-icon>
             </mat-form-field> -->
-          </div>
+          <!-- </div>
           
-          <div class="action-button" fxLayoutGap="25px">
-            <button mat-raised-button color="primary" routerLink="/admin/meter-readings/exceptions">
-              <!-- <fa-icon icon="download"></fa-icon>&nbsp;&nbsp;Import Client -->
-              <mat-icon>download</mat-icon>&nbsp;&nbsp;Exceptions
-            </button>  
-            <button routerLink="/admin/meter-readings/createreading"
-            mat-raised-button color="primary" >
-              <!-- <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;Create Client -->
-              <mat-icon>person_add</mat-icon>&nbsp;&nbsp;Create Reading
-            </button>
+          
+        </div> -->
+
+        <div class="row">
+          <!-- <div class="col-lg-4">
+          <form (ngSubmit)="onSearch(form)" #form="ngForm"> -->
+                <div class="col-lg-2">
+                  <div class="form-group">
+                  <label>Search by:</label>
+                  <select class="form-control show-tick" ngModel name="select" #select="ngModel" (change)="onSelect(select)">
+                    <option *ngFor="let search of searchby" [value]="search">{{search}}</option>
+                  </select>
+                  </div>
+                </div>
+                
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="control-label">Search item:</label>
+                  <input type="text" class="form-control" name="search" ngModel #search="ngModel" (change)="onSearch(search)">
+                  </div>
+                </div>
+          <!-- </form>
+        </div> -->
+          <div class="col-lg-1"></div>
+          <div class="col-lg-2">
+            <div class="form-group">
+              <label class="control-label" for="Scheme">Scheme</label>
+              <select  class="form-control show-tick" ngModel name="scheme"  (change)="onScheme(scheme)"  #scheme="ngModel" required>
+                  <option *ngFor="let scheme of schemes" [value]="scheme.scId">{{scheme.scName}}</option>
+              </select>
+              <div class="help-block"></div>
+            </div> 
           </div>
+        
+        
+          <div class="col-lg-2">
+            <div class="form-group">
+              <label>Sort by zone:</label>
+              <select class="form-control show-tick" ngModel name="zone" #zone="ngModel" (change)="onZone(zone)">
+                <option *ngFor="let zone of zones" [value]="zone.znId">{{zone.znName}}</option>
+              </select>
+            </div>
+          </div>
+            
+          <div class="col-lg-2">
+            <div class="form-group">
+              <label>Sort by route:</label>
+              <select class="form-control show-tick" ngModel name="route" #route="ngModel" (change)="onRoute(route)">
+                <option  style="color: black;" *ngFor="let route of routes" [value]="route.rtId">{{route.rtName}}</option>
+              </select>
+            </div>
+          </div>
+        
         </div>
+        
         <div>
           <table mat-table  class=" table-bordered table-striped" [dataSource]="dataSource" matSort>
     
@@ -110,6 +166,18 @@
               <td mat-cell *matCellDef="let row"> {{row.accNumber}} </td>
             </ng-container>
 
+            
+            <ng-container matColumnDef="invocode">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>invocode</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.invoCode}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="amountbilled">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>amountbilled</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.invoAmount}} </td>
+            </ng-container>
+            
+
             <ng-container matColumnDef="meterimage">
               <th mat-header-cell *matHeaderCellDef> Image </th>
               <td mat-cell *matCellDef="let row"> 
@@ -119,8 +187,8 @@
             
       
       
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="logData(row)" class="select-row">
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.rowStyle]="row['mtrStatus']=='PENDING'" (click)="logData(row)" class="select-row">
             </tr>
           </table>
       

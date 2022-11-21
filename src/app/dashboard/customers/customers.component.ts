@@ -20,7 +20,7 @@ export class CustomersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator:MatPaginator;
 
   
-  displayedColumns : string[] = ["InvoiceNo","InvoiceAmount","Balance","CustomerName","cMobileNumber","CustType","Scheme","Zone","Route","cAccountStatus","cMtrNo","cAccBal","bal_previous_meter_reading"]
+  displayedColumns : string[] = ["CustomerName","cMobileNumber","CustType","Scheme","Zone","Route","cAccountStatus","cMtrNo","cAccBal","bal_previous_meter_reading"] // ,"InvoiceNo","InvoiceAmount","Balance"
 
   dtSource : any[] = [
     {customerName : "george"},

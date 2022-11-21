@@ -26,7 +26,7 @@ export class UsersComponent implements OnInit {
   // = [
   //   {Invoice: "1", Date: "30/04/2020", DueDate:"30/05/2020", Customer:"george karema nguhu", CreatedBy:"Mumias", Amount:"1000", InvoiceBalance:"3000"},
   // ]
-  displayedColumns : string[] = ["FirstName","LastName","Email","Username","MobileNumber","CreatedAt","UpdatedAt","supervisor"]
+  displayedColumns : string[] = ["Role","FirstName","LastName","Email","Username","MobileNumber","CreatedAt","UpdatedAt","supervisor"]
 
   
 

@@ -105,10 +105,11 @@ export class NewCustomerComponent implements OnInit {
               console.log(resData)
               console.log("resdata message response is ---- ",resData.messages?.message)
               this.message = resData.messages.message
+              alert(this.message)
               console.log("this message is ", this.message)
               this.isLoading = false
           } )
-    f.reset()
+    // f.reset()
   }
 
 

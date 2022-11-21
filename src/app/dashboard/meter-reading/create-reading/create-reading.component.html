@@ -176,18 +176,20 @@
                     </div>        
                 </div>
                 <div class="col-md-4">
-                    <label class="control-label" for="zone" >Current Reading</label>
-                    <input type="text" class="form-control" name="curr_reading" ngModel (change)="calcunits($event)" #curr_reading="ngModel">
-                <div class="help-block"></div>        
+                  <div class="form-group">
+                      <label class="control-label" for="scheme">Current Meter reading*</label>
+                      <input type="text" class="form-control" ngModel #mtrCurrentReading="ngModel" name="mtrCurrentReading" (change)="calcunits(mtrCurrentReading)">
+                  <div class="help-block"></div>
+                  </div>
                 </div>
-                <div *ngIf="units" class="col-md-4">
-                    <label class="control-label" for="zone" >Units</label>
-                    <input type="text" class="form-control" name="units" [ngModel]="units" #units readonly>
+                <div  class="col-md-4">
+                    <label class="control-label" for="zone" >Units to be billed: </label>
+                    <h3 *ngIf="currentmeterreading" class="form-control" >{{mtrUnits}} = {{currentmeterreading}} - {{previousmeterreading}}</h3>
                 <div class="help-block"></div>        
                 </div>
             </div> 
             <div class="row">
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label" for="scheme">Account Status</label>
                         <select  class="form-control show-tick" ngModel name="accountstatus"  #accountstatus="ngModel">
@@ -195,21 +197,22 @@
                         </select>
                     <div class="help-block"></div>
                     </div>        
-                </div>
+                </div> -->
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label" for="scheme">Remarks</label>
-                        <textarea class="form-control" name="remarks" ngModel #remarks="ngModel"></textarea>
+                        <textarea class="form-control" name="remarks" ngModel #remarks="ngModel" required></textarea>
                     <div class="help-block"></div>
                     </div>        
                 </div>
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label" for="scheme">Select Meter Reading Image</label>
-                        <input type="file" class="form-control" name="" id="">
-                    <div class="help-block"></div>
+                        <input type="file" class="form-control" >   -->
+                        <!-- (change)="onFileSelected($event) -->
+                    <!-- <div class="help-block"></div>
                     </div>        
-                </div>
+                </div> -->
                 
                 
             </div>

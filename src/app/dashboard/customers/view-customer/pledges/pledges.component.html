@@ -1,64 +1,133 @@
-<section class="content">
-    <mat-card class="container alternate-theme">
-        <div fxLayout="row" fxLayoutAlign="start center">
-          <div class="search-box">
-            <mat-form-field color="primary">
-              <input (keyup)="applyFilter($event)" matInput placeholder="Search by customer name" >
-              <mat-icon color="primary" matSuffix style="font-size: 1.2em">search</mat-icon>
-            </mat-form-field>
-          </div>
-          <div class="action-button" fxLayoutGap="25px">
-            <!-- <button mat-raised-button color="primary" >
-              <mat-icon>download</mat-icon>&nbsp;&nbsp;Import Customers
-            </button>
-            <button routerLink="/admin/customers/createcustomer"
-            mat-raised-button color="primary" >
-              <mat-icon>person_add</mat-icon>&nbsp;&nbsp;Create Customer
-            </button> -->
-          </div>
-        </div>
-        <div>
+<section class="content-header">
+  <div class="container-fluid">
+  <div class="row mb-2">
+  <div class="col-sm-6">
+  <h1>Add Pledge</h1>
+  </div>
+  </div>
+  </div>
+</section>
+<div class="alternate-theme" style="padding-left: 10px;">
+    <div class="row form-group">
+    <div class="col-lg-6">
+      <h2>Add Item details </h2>
+    <form (ngSubmit)="onSubmit(form2)" #form2="ngForm">
+              <!-- <div class="row form-group">
+                  <label class="control-label" for="scheme">Frequency</label>
+                  <input type="text" class="form-control" ngModel name="units" #units="ngModel">
+                  <div class="help-block" *ngIf="units.touched && !units.valid"><p>please enter Units</p></div>
+              </div> -->
+              <div class="row form-group">
+                <label class="control-label" for="scheme">Frequency</label>
+                <select  class="form-control show-tick" ngModel name="Frequency"  #Frequency="ngModel">
+                  <option value="" disabled selected hidden>Select Frequency</option>
+                  <option *ngFor="let billtype of Frequencies" [value]="billtype">{{billtype}}</option>
+              </select>
+              <div class="help-block" *ngIf="billtype.touched && !billtype.valid"><p>please choose billtype</p></div>       
+              </div> 
+              <div class="row form-group">
+                <label class="control-label" for="scheme">Commitment Reason</label>
+                <select  class="form-control show-tick" ngModel name="billtype"  #billtype="ngModel">
+                  <option value="" disabled selected hidden>Select Commitment Reason</option>
+                  <option *ngFor="let billtype of Commitment_reasons" [value]="billtype">{{billtype}}</option>
+              </select>
+              <div class="help-block" *ngIf="billtype.touched && !billtype.valid"><p>please choose billtype</p></div>       
+              </div>   
+              <div class="row form-group">
+                    <label class="control-label" for="scheme">Description</label>
+                    <input type="text" class="form-control" ngModel name="description" #description="ngModel">
+                    <div class="help-block" *ngIf="description.touched && !description.valid"><p>please enter description</p></div>       
+              </div>        
+              <div class="row form-group">
+                      <label class="control-label" for="scheme">No of months/weeks</label>
+                      <input type="text" class="form-control" ngModel name="noofmonths" #noofmonths="ngModel">
+                      <div class="help-block" *ngIf="noofmonths.touched && !noofmonths.valid"><p>please enter No of months/weeks</p></div>
+              </div> 
+              <div class="row form-group">
+                <label class="control-label" for="scheme">Payment Day</label>
+                <input type="text" class="form-control" ngModel name="PaymentDay" #PaymentDay="ngModel">
+                <div class="help-block" *ngIf="PaymentDay.touched && !PaymentDay.valid"><p>please enter Payment Day</p></div>
+              </div> 
+
+              <div class="row form-group">
+                <label class="control-label" for="scheme">Enabled Status ?</label>
+                <select  class="form-control show-tick" ngModel name="EnabledStatus"  #EnabledStatus="ngModel">
+                  <option value="" disabled selected hidden>Select EnabledStatus</option>
+                  <option *ngFor="let billtype of EnabledStatuss" [value]="billtype">{{billtype}}</option>
+              </select>
+              <div class="help-block" *ngIf="billtype.touched && !billtype.valid"><p>please choose billtype</p></div>       
+              </div> 
+
+              <div class="row form-group">
+                <label class="control-label" for="scheme">Recurrent-Type</label>
+                <select  class="form-control show-tick" ngModel name="Recurrent-Type"  #RecurrentType="ngModel">
+                  <option value="" disabled selected hidden>Select RecurrentType</option>
+                  <option *ngFor="let billtype of RecurrentTypes" [value]="billtype">{{billtype}}</option>
+              </select>
+              <div class="help-block" *ngIf="RecurrentType.touched && !RecurrentType.valid"><p>please choose billtype</p></div>       
+              </div> 
+
+              <div class="row form-group">
+                <div class="col-lg-6">
+                  <label class="control-label" for="scheme">Installment Amount *</label>
+                  <input type="text" class="form-control" ngModel name="Installment" #Installment="ngModel">
+                  <div class="help-block" *ngIf="Installment.touched && !Installment.valid"><p>please enter Installment</p></div>
+                </div>
+                <div class="col-lg-6">
+                  <label class="control-label" for="scheme">Account Balance *</label>
+                <input type="text" class="form-control" ngModel name="AccountBalance" #AccountBalance="ngModel">
+                <div class="help-block" *ngIf="AccountBalance.touched && !AccountBalance.valid"><p>please enter AccountBalance</p></div>
+                </div>      
+              </div> 
+              <div class="row form-group">
+                <div class="col-lg-6">
+                  <label class="control-label" for="scheme">WEF Date</label>
+                  <input type="text" class="form-control" ngModel name="WEFDate" #WEFDate="ngModel">
+                  <div class="help-block" *ngIf="WEFDate.touched && !WEFDate.valid"><p>please enter WEFDate</p></div>
+                </div>
+                <div class="col-lg-6">
+                  <label class="control-label" for="scheme">WET Date</label>
+                <input type="text" class="form-control" ngModel name="WETDate" #WETDate="ngModel">
+                <div class="help-block" *ngIf="WETDate.touched && !WETDate.valid"><p>please enter WET Date</p></div>
+                </div>      
+              </div> 
+
+              
+              <button mat-raised-button type="submit" color="primary" [disabled]="!form2.valid">Add</button>
+
+              <div *ngIf="message" class="help-block">{{message}}</div>
+      </form>
+              <!-- end of form -->
+      </div>     
+
+      <div class="col-lg-6">
+          <h2>Pledges Table </h2>
           <table mat-table  class=" table-bordered table-striped" [dataSource]="dataSource" matSort>
-    
-    
-            <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Id </h3></th>
-              <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      
+            <!-- "Invoice#","Date","DueDate","Customer","CreatedBy","Amount","InvoiceBalance" -->
+            <ng-container matColumnDef="BalanceAmount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> BalanceAmount </h3></th>
+              <td mat-cell *matCellDef="let row"> {{row.invoCode}} </td>
             </ng-container>
       
             <!-- Name Column -->
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Name </h3></th>
-              <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+            <ng-container matColumnDef="Frequency">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3> Frequency</h3></th>
+              <td mat-cell *matCellDef="let row"> {{row.invoCreatedDate}} </td>
             </ng-container>
       
             <!-- Account no Column -->
-            <ng-container matColumnDef="kraPin">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>kraPin</h3> </th>
-              <td mat-cell *matCellDef="let row"> {{row.kraPin}} </td>
+            <ng-container matColumnDef="InstallmentAmount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>InstallmentAmount</h3> </th>
+              <td mat-cell *matCellDef="let row"> {{row.invoDueDate}} </td>
             </ng-container>
       
             <!-- External ID Column -->
-            <ng-container matColumnDef="CustType">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>CustType</h3> </th>
-              <td mat-cell *matCellDef="let row"> {{row.CustType}} </td>
-            </ng-container>
     
-    
-            <ng-container matColumnDef="Scheme">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Scheme</h3> </th>
-              <td mat-cell *matCellDef="let row"> {{row.Scheme}} </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="Zone">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Zone</h3> </th>
-              <td mat-cell *matCellDef="let row"> {{row.Zone}} </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="Route">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Route</h3> </th>
-              <td mat-cell *matCellDef="let row"> {{row.Route}} </td>
-            </ng-container>
+            <!-- <ng-container matColumnDef="Actions">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> <h3>Actions</h3> </th>
+              <td mat-cell *matCellDef="let row"> <mat-icon (click)="delete(row)">delete</mat-icon><mat-icon (click)="view(row)">visibility</mat-icon> </td>
+            </ng-container> -->
       
       
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -66,9 +135,8 @@
             </tr>
           </table>
       
-          <mat-paginator  [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]"
+          <mat-paginator  [pageSize]="20" [pageSizeOptions]="[20, 40, 60, 80, 100]"
             showFirstLastButtons></mat-paginator>
         </div>
-      
-    </mat-card>
-    </section>
+        </div>  
+      </div>

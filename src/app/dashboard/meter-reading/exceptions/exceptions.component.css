@@ -41,3 +41,7 @@ tr:nth-child(odd).td{
 input{
     color: black;
 }
+/* .rowStyle{
+    background-color:red;
+    font-weight: bold;
+    } */

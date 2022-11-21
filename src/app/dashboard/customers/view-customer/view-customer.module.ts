@@ -7,6 +7,7 @@ import { PledgesComponent } from './pledges/pledges.component';
 import { MeterReadingComponent } from './meter-reading/meter-reading.component';
 import { ViewCustomerComponent } from './view-customer.component';
 import { MaterialModule } from 'src/app/material/material.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { MaterialModule } from 'src/app/material/material.module';
   imports: [
     CommonModule,
     ViewCustomerRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ]
 })
 export class ViewCustomerModule { }

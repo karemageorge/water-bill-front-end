@@ -20,7 +20,7 @@ export class ViewBillComponent implements OnInit {
   
   @ViewChild(MatSort) sort:MatSort;
   @ViewChild(MatPaginator) paginator:MatPaginator;
-  displaycolumns : string[]= ["Description","Return Status", "Qty","Price","Amount"]
+  displaycolumns : string[]= ["Description", "Qty","Price","Amount"] // ,"Return Status"
 
   dtSource : any
   dataSource : any

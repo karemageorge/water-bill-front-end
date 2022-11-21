@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NgModel } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-customer-enquery',
@@ -18,9 +18,9 @@ export class CustomerEnqueryComponent implements OnInit {
   @ViewChild(MatSort) sort:MatSort;
   @ViewChild(MatPaginator) paginator:MatPaginator;
 
-  
-  displayedColumns : string[] = ["Zone","Account_Number","Old_Acc","Account_Name","Account_Balance","Mobile_Number","Scheme","Zone","Route","Account_Status","National_Id","Deposit","Serial_Number"]
-
+  selecteditem : any
+  displayedColumns : string[] = ["Account_Name","Account_Number","Account_Balance","Mobile_Number","National_Id","Deposit","Serial_Number","Scheme","Zone","Route","Account_Status","Zone","Old_Acc"]
+  schemes : any[] = []
   dtSource : any[] = [
     {customerName : "george"},
     {customerName : "mark"},
@@ -29,7 +29,12 @@ export class CustomerEnqueryComponent implements OnInit {
 
   
   dataSource : any
-  
+  searchby: any[] = ["cAccNumber","cAccountName"]
+  routes : any[] = []
+  zones: any[] = []
+  scId : any
+  znId: any
+  rtId : any
 
 
   constructor(private router : Router, private dialog : MatDialog, private http: HttpClient ) { }
@@ -47,12 +52,25 @@ export class CustomerEnqueryComponent implements OnInit {
           }
           else {
             console.log(resData.data.result)
+
+            this.http.post(environment.base_url+'/msg/fetchScheme.action?scId=&query=', {} ,{
+              headers : new HttpHeaders({
+                  'content-type': 'application/x-www-form-urlencoded'
+              })
+          } ).subscribe(
+                (resData: any) => {
+                    console.log(resData.data.result)
+                    this.schemes = resData.data.result
+                })
+                
             this.dataSource = new MatTableDataSource(resData.data.result);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
           }
         } 
         )
+
+        
   }
   ngAfterViewInit() {
     // this.dataSource.paginator = this.paginator
@@ -78,11 +96,14 @@ export class CustomerEnqueryComponent implements OnInit {
     this.router.navigate(['/admin/customers/createcustomer'])
 
   }
+  onSelect(select: any){
+    this.selecteditem = select.viewModel
+  }
 
-  onSearch(search : NgModel){
-    console.log(search.value)
-    const name = search.value
-    const url = environment.base_url+'/account/fetchCustomers.action?criteria=customerName&txtSearch='+name+'&znId=&scId='
+  onSearch(search : any){
+    console.log(search.viewModel)
+    
+    const url = environment.base_url+'/account/fetchCustomersAccounts.action?criteria='+this.selecteditem+'&txtSearch='+search.viewModel+'&znId=&scId='
 
     console.log(url)
 
@@ -109,4 +130,102 @@ export class CustomerEnqueryComponent implements OnInit {
   }
 
 
+  onScheme(scheme : NgModel){
+    
+    console.log(scheme.viewModel)
+
+    this.scId =  scheme.viewModel
+
+    this.http.post(environment.base_url+'/account/fetchAllZones.action?scId='+this.scId, {} ,{
+      headers : new HttpHeaders({
+          'content-type': 'application/x-www-form-urlencoded'
+      })
+  } ).subscribe(
+        (resData: any) => {
+            console.log(resData.data.result)
+            this.zones = resData.data.result
+        })
+    // http://188.166.29.198:8080/DEMO/account/fetchAllZones.action?scId=13
+    
+
+    
+    this.http.post(environment.base_url+'/account/fetchCustomers.action?scId='+this.scId, {} ,{
+      headers : new HttpHeaders({
+          'content-type': 'application/x-www-form-urlencoded'
+      })
+  } ).subscribe(
+        (resData: any) => {
+          this.dataSource = new MatTableDataSource(resData.data.result);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        })
+    
+    
+  }
+
+
+  onZone(zone: NgModel){
+    console.log(zone.viewModel)
+    this.znId = zone.viewModel
+  
+    this.http.post(environment.base_url+'/account/fetchRoutes.action?zn_id='+this.znId+'&criteria=&txtSearch=', {} ,{
+      headers : new HttpHeaders({
+          'content-type': 'application/x-www-form-urlencoded'
+      })
+      } ).subscribe(
+        (resData: any) => {
+            console.log(resData.data.result)
+            this.routes = resData.data.result
+        })
+  
+    // http://188.166.29.198:8080/DEMO/account/fetchRoutes.action
+    this.http.post(environment.base_url+'/account/fetchCustomers.action?znId='+this.znId+'&criteria=&txtSearch=', {} ,{
+      headers : new HttpHeaders({
+          'content-type': 'application/x-www-form-urlencoded'
+      })
+      } ).subscribe(
+        (resData: any) => {
+          this.dataSource = new MatTableDataSource(resData.data.result);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        })
+
+      }
+  
+  onRoute(route:NgModel){
+  
+        
+        // http://188.166.29.198:8080/DEMO/account/fetchAllZones.action?scId=13
+        
+        this.rtId = route.viewModel
+    this.http.post(environment.base_url+'/account/fetchCustomers.action?rtId='+this.rtId+'&criteria=&txtSearch=', {} ,{
+      headers : new HttpHeaders({
+          'content-type': 'application/x-www-form-urlencoded'
+      })
+      } ).subscribe(
+        (resData: any) => {
+          this.dataSource = new MatTableDataSource(resData.data.result);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        })
+        
+
+  
+  
+      }
+
+  onSort(route : NgModel){
+
+    this.rtId = route.viewModel
+    this.http.post(environment.base_url+'/account/fetchCustomers.action?rtId='+this.znId+'&criteria=&txtSearch=', {} ,{
+      headers : new HttpHeaders({
+          'content-type': 'application/x-www-form-urlencoded'
+      })
+      } ).subscribe(
+        (resData: any) => {
+          this.dataSource = new MatTableDataSource(resData.data.result);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        })
+  }
 }

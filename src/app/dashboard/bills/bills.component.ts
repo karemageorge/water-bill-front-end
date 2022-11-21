@@ -70,7 +70,7 @@ export class BillsComponent implements OnInit {
   onSearch(search : NgModel){
     console.log(search.value)
     const name = search.value
-    const url = environment.base_url+'/account/fetchInvoice.action?criteria=customerName&txtSearch='+name+'&pendinginvoices_id='
+    const url = environment.base_url+'/account/fetchInvoice.action?criteria=cAccNumber&txtSearch='+name+'&pendinginvoices_id='
 
     console.log(url)
 
@@ -119,7 +119,7 @@ export class BillsComponent implements OnInit {
       // maxWidth: '100vw',
       // maxHeight: '100vh',
       data : {invoid : row.invoId, invocode : row.invoCode},
-      height: '400px',
+      height: '600px',
       width: '800px',
       // panelClass: 'full-screen-modal'
     });
@@ -160,14 +160,16 @@ export class BillsComponent implements OnInit {
           var PDF_link = document.createElement('a');
           PDF_link.href = pdfUrl;
           //   TO OPEN PDF ON BROWSER IN NEW TAB
+          
           window.open(pdfUrl, '_blank');
-          alert('Print Bill ready for viewing. Click ok to download')
           //   TO DOWNLOAD PDF TO YOUR COMPUTER
-          PDF_link.download = "TestFile.pdf";
+          PDF_link.download = "Bill.pdf";
           PDF_link.click();
           console.log(resData)
+          
           }
         )
+        alert('Bill opened successfully!')
   }
 
   base64ToArrayBuffer(base64:any):ArrayBuffer {

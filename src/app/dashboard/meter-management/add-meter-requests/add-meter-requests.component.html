@@ -1,0 +1,76 @@
+<div class="container">
+        <div class="row form-group">
+            <div class="col-lg-6">
+              <h2>Add Item details </h2>
+            <form (ngSubmit)="onSubmit(form2)" #form2="ngForm">
+                      <div class="row form-group">
+                          <label class="control-label" for="scheme">Meter Type</label>
+                          <input type="text" class="form-control" [ngModel]="domesticm" name="domestic" #domestic="ngModel" disabled>
+                          <div class="help-block" *ngIf="domestic.touched && !domestic.valid"><p>please enter Units</p></div>
+                      </div>
+                      <div class="row form-group">
+                        <label class="control-label" for="scheme">Account</label>
+                        <input type="text" class="form-control" [ngModel]="accounts" name="accounts" #accounts="ngModel">
+                      <div class="help-block" *ngIf="accounts.touched && !accounts.valid"><p>please choose accounts</p></div>       
+                      </div>   
+                      <div class="row form-group">
+                            <label class="control-label" for="scheme">Old Meter Number</label>
+                            <input type="text" class="form-control" ngModel name="oldmeter" #oldmeter="ngModel">
+                            <div class="help-block" *ngIf="oldmeter.touched && !oldmeter.valid"><p>please enter oldmeter number</p></div>       
+                      </div>        
+                      <div class="row form-group">
+                              <label class="control-label" for="reason">Request Reason</label>
+                              <input type="text" class="form-control" ngModel name="reason" #reason="ngModel">
+                              <div class="help-block" *ngIf="reason.touched && !reason.valid"><p>please enter reason</p></div>
+                      </div> 
+                      
+                      <button mat-raised-button type="submit" color="primary" [disabled]="!form2.valid">Add</button>
+      
+                      <div *ngIf="message" class="help-block">{{message}}</div>
+              </form>
+                      <!-- end of form -->
+              </div>     
+      
+              <div class="col-lg-6">
+                  <h2>Check Items Table to Approve </h2>
+                <form (ngSubmit)="onSubmit(form2)" #form2="ngForm">
+                <div class="row">
+                    <div class="col-md-4">
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Date</mat-label>
+                            <input matInput [matDatepicker]="picker2" ngModel name="date" required>
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    <div class="help-block"></div>        
+                    </div>
+                    <!-- <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label" for="invoiceno">Invoice #</label>
+                            <input type="text" class="form-control" ngModel name="invoiceno" #invoiceno="ngModel" disabled>
+                        <div class="help-block"></div>
+                        </div>        
+                    </div> -->
+                    <div class="col-md-4">
+                        <label class="control-label" for="noofaccounts" >Number Of Accounts</label>
+                        <input type="text" class="form-control" ngModel name="noofaccounts" #noofaccounts="ngModel" disabled>
+                    <div *ngIf="" class="help-block" ></div>        
+                    </div>
+                </div> 
+            
+            
+            
+            
+                <button mat-raised-button type="submit" color="primary" >Create Invoice</button>
+            
+                <div *ngIf="message" class="help-block">{{message}}</div>
+                <div>
+                </div>
+              </form>
+
+        </div>
+    </div>
+</div>
+

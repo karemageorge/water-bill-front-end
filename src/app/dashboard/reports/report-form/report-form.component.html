@@ -71,7 +71,7 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <select  class="form-control show-tick" ngModel name="zone"  #zone="ngModel" required>
+                <select  class="form-control show-tick" ngModel name="zone"  #zone="ngModel">
                     <option *ngFor="let zone of zones" [value]="zone.v_key_id">{{zone.desc}}</option>
                 </select>
                 <div *ngIf="zone.touched && !zone.valid" class="help-block">Please select zone</div>

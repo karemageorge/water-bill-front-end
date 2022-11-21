@@ -31,6 +31,7 @@ export class SendmessageComponent implements OnInit {
   } ).subscribe(
         (resData: any) => {
           console.log(resData)
+          alert(resData.messages.message)
           this.mess = resData.messages.message
       })
       form.reset()

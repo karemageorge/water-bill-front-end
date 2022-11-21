@@ -40,7 +40,7 @@ export class CreateBillDetailsComponent implements OnInit {
   displayedColumns : string[] = ["Invoice","Date","DueDate","Customer","CreatedBy","Amount","InvoiceBalance"] // "Actions",
   dataSource : any
   invoiceid : any
-  displaycolumns : string[]= ["Actions","Description","Return Status", "Qty","Price","Amount"]
+  displaycolumns : string[]= ["Actions","Description", "Qty","Price","Amount"] // "Return Status",
 
   
 
@@ -170,22 +170,27 @@ onSubmit(form : NgForm){
           
           alert(resData.messages.message)
 
+
+          this.http.post(environment.base_url+'/account/fetchInvoiceDetail.action?criteria=&txtSearch=&invoId='+this.invoiceid, {} ,{
+            headers : new HttpHeaders({
+                'content-type': 'application/x-www-form-urlencoded'
+            })
+        } ).subscribe(
+              (resData: any) => {
+                  console.log(resData.data.result)
+                  this.dtSource = new MatTableDataSource(resData.data.result);
+                  this.dtSource.paginator = this.paginator;
+                  this.dtSource.sort = this.sort;
+                }
+              )
+
+
+
           console.log(resData.data.result)
           form.reset()    
       } )
 
-      this.http.post(environment.base_url+'/account/fetchInvoiceDetail.action?criteria=&txtSearch=&invoId='+this.invoiceid, {} ,{
-        headers : new HttpHeaders({
-            'content-type': 'application/x-www-form-urlencoded'
-        })
-    } ).subscribe(
-          (resData: any) => {
-              console.log(resData.data.result)
-              this.dtSource = new MatTableDataSource(resData.data.result);
-              this.dtSource.paginator = this.paginator;
-              this.dtSource.sort = this.sort;
-            }
-          )
+      
 }
 deleteitem(row: any){
 

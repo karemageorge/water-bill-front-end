@@ -70,6 +70,10 @@ const routes: Routes = [
         path: 'users',
         loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
       },
+      { 
+        path: 'meter-management',
+        loadChildren: () => import('./meter-management/meter-management.module').then(m => m.MeterManagementModule)
+      },
     ]
 },
 ];

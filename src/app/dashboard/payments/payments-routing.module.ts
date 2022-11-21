@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreatePaymentComponent } from './create-payment/create-payment.component';
+import { PaymentExceptionsComponent } from './payment-exceptions/payment-exceptions.component';
 import { PaymentsComponent } from './payments.component';
 
 const routes: Routes = [
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path : 'create-payments',
     component: CreatePaymentComponent
+  },
+  {
+    path : 'payment-exceptions',
+    component: PaymentExceptionsComponent
   }
 ];
 

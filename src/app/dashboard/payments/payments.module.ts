@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EquityPaymentsComponent } from './equity-payments/equity-payments.component';
 import { MpesaPaymentsComponent } from './mpesa-payments/mpesa-payments.component';
+import { PaymentExceptionsComponent } from './payment-exceptions/payment-exceptions.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { MpesaPaymentsComponent } from './mpesa-payments/mpesa-payments.componen
     PaymentsComponent,
     CreatePaymentComponent,
     EquityPaymentsComponent,
-    MpesaPaymentsComponent
+    MpesaPaymentsComponent,
+    PaymentExceptionsComponent
   ],
   entryComponents:[EquityPaymentsComponent, MpesaPaymentsComponent],
   imports: [

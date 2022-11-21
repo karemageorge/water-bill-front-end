@@ -4,6 +4,7 @@ import { ApproveComponent } from './approve/approve.component';
 import { CreateCustomerComponent } from './create-customer/create-customer.component';
 import { CustomerEnqueryComponent } from './customer-enquery/customer-enquery.component';
 import { CustomersComponent } from './customers.component';
+import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 import { NewCustomerComponent } from './new-customer/new-customer.component';
 import { ViewInvoicesComponent } from './view-invoices/view-invoices.component';
 
@@ -23,6 +24,10 @@ const routes: Routes = [
 { 
   path: 'newcustomer',
   component: NewCustomerComponent
+},
+{ 
+  path: 'editcustomer/:id',
+  component: EditCustomerComponent
 },
 { 
   path: 'view-invoices',

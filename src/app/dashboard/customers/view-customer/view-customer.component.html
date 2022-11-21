@@ -28,11 +28,22 @@
                     <label for=""><span style="font-size: 15px;">Zone:</span> {{userDetails?.znName | uppercase}}</label><br>
                     <label for=""><span style="font-size: 15px;">Route:</span> {{userDetails?.rtName | uppercase}}</label><br>
                 </mat-card-subtitle>
+                
                 <mat-card-actions align="end">
+                  <div class="col-lg-2">
+                    <div class="form-group">
+                      <!-- <label class="control-label" for="Scheme">Scheme</label> -->
+                      <select  class="form-control" ngModel name="period" #period="ngModel" (change)="onPeriod(period)" required>
+                        <option *ngFor="let period of periods" [value]="period.pdId">{{period.pdCode}}</option>
+                      </select>
+                      <div class="help-block"></div>
+                    </div> 
+                  </div>
                     <button mat-raised-button color="white" (click)="printBill()">Print Bill</button>
                     <button mat-raised-button color="white" (click)="sendBill()">Send Bill</button>
                     <button mat-raised-button color="white" (click)="printStatement()">Print Statement</button>
                     <button mat-raised-button color="white" (click)="emailStatement()">Email Statement</button>
+                    <button mat-raised-button color="white" [routerLink]="['/admin/customers/editcustomer',userDetails?.customerId]">Edit</button>
                 </mat-card-actions>
         </mat-card-header>
         <mat-card-content>
@@ -43,9 +54,9 @@
             <mat-tab label="Meter Readings"> 
               <app-meter-reading [customeID]="id"></app-meter-reading>
             </mat-tab>
-            <!-- <mat-tab label="Third"> 
+            <mat-tab label="Pledges"> 
               <app-pledges [customeID]="userDetails?.cAccId"></app-pledges>
-            </mat-tab> -->
+            </mat-tab>
           </mat-tab-group>
         
             <router-outlet ></router-outlet>
